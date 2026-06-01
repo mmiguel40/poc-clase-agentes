@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(mkdir -p \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\instructions\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\skills\\\\react-frontend\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\skills\\\\react-state\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\skills\\\\react-ui\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\agents\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\prompts\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\commands\")",
-      "Bash(git -C \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\" status)"
-    ]
-  }
-}
