@@ -12,6 +12,8 @@ El usuario quiere crear una nueva aplicación React. Su descripción es:
 
 "{{description}}"
 
+La aplicación React debe crearse siempre dentro de una nueva subcarpeta en la raíz del repositorio sin sobrescribir archivos existentes en la raíz.
+
 Sigue el protocolo de dos fases definido en el agente:
 
 1. **Fase 1 — Planificación:** Genera el plan de arquitectura completo (entidades, modelo de datos, páginas/rutas, componentes, hooks, services, capacidades) en el formato exacto que define el agente.

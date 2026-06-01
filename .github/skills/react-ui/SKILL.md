@@ -21,6 +21,26 @@ Esta skill define el **stack visual, las convenciones de estilo, dark mode, acce
 - **Iconos:** `lucide-react`.
 - **Utilidad de clases:** `cn()` basada en `clsx` + `tailwind-merge`.
 
+## Estilo visual moderno
+
+La UI debe sentirse moderna y elegante, con una estética de vidrio esmerilado (glassmorphism). Los componentes principales deben usar:
+
+- fondos semitransparentes con `backdrop-blur` suaves
+- bordes redondeados y difuminados
+- sombras suaves y elevaciones ligeras
+- paleta sobria y elegante con acentos discretos
+- contraste bien balanceado para dark mode y light mode
+
+Ejemplo de patrón de estilo:
+
+```tsx
+<div className="rounded-[28px] border border-white/20 bg-white/70 p-6 shadow-2xl shadow-slate-950/10 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/50">
+  ...
+</div>
+```
+
+Este enfoque debe aplicarse en tarjetas, formularios y paneles principales para lograr una experiencia transparente, delicada y moderna.
+
 ## Convenciones Tailwind
 
 ### Utility `cn()`

@@ -47,7 +47,7 @@ Sigues **siempre** un protocolo de dos fases. **No saltarse ningún paso.**
 
 **Stack:** Vite + React 18 + TypeScript + Tailwind CSS
 **Persistencia:** localStorage via service pattern
-**Estructura:** feature-based folders en src/features/[nombre-feature]/
+**Estructura:** nueva app React dentro de una subcarpeta en la raíz del repositorio; dentro de esa app usar feature-based folders en src/features/[nombre-feature]/
 
 ¿Confirmas este plan para proceder con la construcción? (responde "sí" o sugiere cambios)
 ```
@@ -68,13 +68,15 @@ Solo tras confirmación explícita del usuario, ejecutas la construcción en est
 ### Paso 1: Scaffold del Proyecto
 
 ```bash
-npm create vite@latest [nombre-app] -- --template react-ts
-cd [nombre-app]
+npm create vite@latest [app-folder] -- --template react-ts
+cd [app-folder]
 npm install
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 npm install lucide-react clsx tailwind-merge
 ```
+
+- Usa siempre una subcarpeta nueva dentro de la raíz del repositorio para la app React. No scaffoldees en la raíz del repositorio ni sobrescribas archivos existentes allí.
 
 ### Paso 2: Configurar Tailwind
 
@@ -114,6 +116,8 @@ Cada componente sigue las reglas de `react-components.instructions.md`.
 ### Paso 8: Actualizar `App.tsx`
 
 Componer el layout principal usando los componentes de la feature. Incluir header, contenedor responsivo y posiblemente toggle de dark mode si aplica.
+
+- El diseño debe sentirse moderno y elegante, con uso de superficies tipo vidrio esmerilado (`glassmorphism`) en tarjetas y paneles.
 
 ### Paso 9: Validación
 
