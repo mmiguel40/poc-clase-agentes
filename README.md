@@ -108,7 +108,7 @@ GitHub Copilot Agent Mode lee la carpeta `.github/` y compone el contexto del ag
 ```
 .
 ├── README.md                                     # Este archivo
-├── agentes-ia-slides.html                        # Slides de la clase (abrir en navegador)
+├── index.html                                    # Slides de la clase (abrir en navegador o GitHub Pages)
 └── .github/
     ├── copilot-instructions.md                   # ① Contexto base global
     ├── instructions/
@@ -365,7 +365,9 @@ Nombres cortos, descripción clara, un placeholder bien nombrado.
 
 ### Slides
 
-Abre [`agentes-ia-slides.html`](agentes-ia-slides.html) en cualquier navegador moderno. Es una presentación HTML de 9 slides autocontenida (sin dependencias externas).
+**En línea (GitHub Pages):** https://mmiguel40.github.io/poc-clase-agentes/
+
+**Localmente:** abre [`index.html`](index.html) en cualquier navegador moderno. Es una presentación HTML de 9 slides autocontenida (sin dependencias externas).
 
 Navegación: flechas `←` `→` del teclado.
 
