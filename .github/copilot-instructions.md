@@ -47,7 +47,6 @@ Las siguientes prácticas están prohibidas en todo el repositorio sin excepció
 ## Reglas Operativas para el Agente
 
 - **Antes de crear cualquier archivo**, verificar si ya existe. Si existe, leerlo antes de modificarlo. Nunca sobrescribir sin confirmación.
-- Cuando crees una nueva aplicación React desde cero, generarla dentro de una subcarpeta nueva en la raíz del repositorio para preservar los archivos existentes en el root.
 - **Antes de modificar un archivo existente**, leerlo completo para entender el contexto.
 - **Al finalizar cualquier cambio significativo**, ejecutar `npm run build` para validar que no hay errores de TypeScript. Si falla, leer el error completo y corregir antes de reportar éxito.
 - **No ignorar errores de TypeScript "por ahora".** Si aparece un error, corregirlo.

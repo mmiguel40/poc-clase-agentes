@@ -94,13 +94,25 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 .l-llm .layer-tag{background:rgba(255,107,107,.12);color:var(--coral)}
 .code-block{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:20px 22px;font-family:var(--mono);font-size:12px;line-height:1.9}
 .code-block .path{font-size:10px;color:var(--dim);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.code-block .ln{display:flex;gap:14px}
+.code-block .ln{display:flex;gap:14px;padding:1px 6px;margin:0 -6px;border-radius:4px;transition:opacity .28s ease,background .28s ease}
 .code-block .n{color:var(--dim);width:14px;text-align:right;flex-shrink:0}
 .code-block .k{color:var(--purple)}
 .code-block .v{color:var(--teal)}
 .code-block .s{color:var(--amber)}
 .code-block .c{color:var(--dim);font-style:italic}
 .code-block .req{color:var(--coral)}
+.code-block.has-active .ln{opacity:.18}
+.code-block.has-active .ln.is-hl{opacity:1}
+.code-block.has-active .ln.is-hl[data-step="1"]{background:rgba(124,92,252,.1)}
+.code-block.has-active .ln.is-hl[data-step="2"]{background:rgba(0,201,167,.08)}
+.code-block.has-active .ln.is-hl[data-step="3"]{background:rgba(245,166,35,.07)}
+.step-card{cursor:pointer;transition:opacity .25s ease,transform .25s ease,border-color .25s ease,box-shadow .25s ease;user-select:none;position:relative}
+.step-card:hover{transform:translateY(-2px)}
+.step-row.has-active .step-card{opacity:.4}
+.step-row.has-active .step-card.is-active{opacity:1;transform:translateY(-2px)}
+.step-card.is-active[data-step-card="1"]{border-color:rgba(124,92,252,.7)!important;box-shadow:0 0 22px rgba(124,92,252,.3)}
+.step-card.is-active[data-step-card="2"]{border-color:rgba(0,201,167,.65)!important;box-shadow:0 0 22px rgba(0,201,167,.28)}
+.step-card.is-active[data-step-card="3"]{border-color:rgba(245,166,35,.65)!important;box-shadow:0 0 22px rgba(245,166,35,.28)}
 .flow{display:flex;align-items:flex-start;width:100%;max-width:1100px}
 .fstep{flex:1;display:flex;flex-direction:column;align-items:center}
 .fconn{display:flex;align-items:center;padding-top:40px;flex-shrink:0;width:24px}
@@ -144,6 +156,18 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 .fs-tree .badge.auto{background:rgba(0,201,167,.12);color:var(--teal)}
 .fs-tree .badge.ondemand{background:rgba(245,166,35,.12);color:var(--amber)}
 .fs-tree .badge.cmd{background:rgba(78,168,222,.12);color:var(--blue)}
+.fs-tree .tree-row{transition:opacity .28s ease}
+.fs-tree.has-active .tree-row{opacity:.18}
+.fs-tree.has-active .tree-row.is-hl{opacity:1}
+.fs-tree.has-active .tree-row.is-root{opacity:.7}
+.artifact-card{cursor:pointer;transition:opacity .25s ease,transform .25s ease,border-color .25s ease,box-shadow .25s ease;user-select:none}
+.artifact-card:hover{transform:translateY(-2px)}
+.artifact-row.has-active .artifact-card{opacity:.38}
+.artifact-row.has-active .artifact-card.is-active{opacity:1;transform:translateY(-2px)}
+.artifact-card.is-active[data-artifact-card="1"]{border-color:rgba(124,92,252,.65)!important;box-shadow:0 0 22px rgba(124,92,252,.28)}
+.artifact-card.is-active[data-artifact-card="2"]{border-color:rgba(0,201,167,.6)!important;box-shadow:0 0 22px rgba(0,201,167,.26)}
+.artifact-card.is-active[data-artifact-card="3"]{border-color:rgba(245,166,35,.6)!important;box-shadow:0 0 22px rgba(245,166,35,.26)}
+.artifact-card.is-active[data-artifact-card="4"]{border-color:rgba(78,168,222,.6)!important;box-shadow:0 0 22px rgba(78,168,222,.26)}
 .quotes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:960px}
 .qcard{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:22px;position:relative;overflow:hidden;transition:transform .2s}
 .qcard:hover{transform:translateY(-2px)}
@@ -302,113 +326,201 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 </div>
 
 <!-- ══════════════════════════════════
-  04 — ESTRUCTURA .GITHUB (5 ARTEFACTOS)
+  04 — EVOLUCIÓN DE GITHUB COPILOT
+══════════════════════════════════ -->
+<div class="slide" id="s-evolucion">
+  <div class="eyebrow purple a1" style="text-align:center">03 — evolución</div>
+  <h2 class="title a2" style="text-align:center;margin-bottom:14px;font-size:clamp(32px,4vw,56px)">
+    Cómo llegó Copilot<br><em class="purple">a ser un agente</em>
+  </h2>
+  <p class="a3" style="text-align:center;max-width:760px;margin:0 auto 50px;font-family:var(--mono);font-size:13px;color:var(--muted);line-height:1.8">
+    En cuatro años pasó de autocompletar líneas a orquestar agentes con planificación,<br>
+    skills personalizadas y MCP. Cada hito abrió el camino al siguiente.
+  </p>
+
+  <!-- TIMELINE -->
+  <div class="a4" style="position:relative;width:100%;max-width:1280px;margin:0 auto;padding:0 28px">
+    <!-- línea base -->
+    <div style="position:absolute;top:54px;left:48px;right:48px;height:2px;background:linear-gradient(90deg,rgba(140,140,160,.25) 0%,rgba(124,92,252,.5) 55%,rgba(0,201,167,.7) 80%,rgba(245,166,35,.9) 100%)"></div>
+
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;position:relative">
+
+      <!-- 1. Jun 2021 — Autocompletado -->
+      <div style="text-align:center;padding:0 4px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--dim);margin-bottom:18px">JUN 2021</div>
+        <div style="width:12px;height:12px;border-radius:50%;background:#54556a;margin:0 auto 16px;border:3px solid var(--bg);box-shadow:0 0 0 1px rgba(140,140,160,.4)"></div>
+        <div style="font-size:13px;font-weight:600;color:var(--muted);line-height:1.3">Autocompletado</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:6px;line-height:1.4">Sugerencias línea por línea</div>
+      </div>
+
+      <!-- 2. Mar 2023 — Chat -->
+      <div style="text-align:center;padding:0 4px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--dim);margin-bottom:18px">MAR 2023</div>
+        <div style="width:12px;height:12px;border-radius:50%;background:#6b6c85;margin:0 auto 16px;border:3px solid var(--bg);box-shadow:0 0 0 1px rgba(140,140,160,.4)"></div>
+        <div style="font-size:13px;font-weight:600;color:var(--muted);line-height:1.3">Chat</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:6px;line-height:1.4">Conversación contextual</div>
+      </div>
+
+      <!-- 3. Nov 2023 — Workspace -->
+      <div style="text-align:center;padding:0 4px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--dim);margin-bottom:18px">NOV 2023</div>
+        <div style="width:12px;height:12px;border-radius:50%;background:#7c5cfc;opacity:.55;margin:0 auto 16px;border:3px solid var(--bg);box-shadow:0 0 0 1px rgba(124,92,252,.3)"></div>
+        <div style="font-size:13px;font-weight:600;color:var(--muted);line-height:1.3">Workspace</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:6px;line-height:1.4">Contexto multi-archivo</div>
+      </div>
+
+      <!-- 4. Oct 2024 — Multi-file edits -->
+      <div style="text-align:center;padding:0 4px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);margin-bottom:18px">OCT 2024</div>
+        <div style="width:12px;height:12px;border-radius:50%;background:#7c5cfc;opacity:.8;margin:0 auto 16px;border:3px solid var(--bg);box-shadow:0 0 0 1px rgba(124,92,252,.5)"></div>
+        <div style="font-size:13px;font-weight:600;color:var(--text);line-height:1.3">Edición multi-archivo</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:6px;line-height:1.4">Cambios coordinados en varios archivos</div>
+      </div>
+
+      <!-- 5. Feb 2025 — Agent Mode -->
+      <div style="text-align:center;padding:0 4px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--teal);margin-bottom:18px">FEB 2025</div>
+        <div style="width:14px;height:14px;border-radius:50%;background:var(--teal);margin:0 auto 15px;border:3px solid var(--bg);box-shadow:0 0 12px rgba(0,201,167,.4)"></div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.3">Modo Agente</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;line-height:1.4">Loop autónomo · Code Review</div>
+      </div>
+
+      <!-- 6. May 2025 — Coding Agent + MCP -->
+      <div style="text-align:center;padding:0 4px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--teal);margin-bottom:18px">MAY 2025</div>
+        <div style="width:14px;height:14px;border-radius:50%;background:var(--teal);margin:0 auto 15px;border:3px solid var(--bg);box-shadow:0 0 14px rgba(0,201,167,.55)"></div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);line-height:1.3">Coding Agent · MCP</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;line-height:1.4">Modernización · Servidores MCP</div>
+      </div>
+
+      <!-- 7. Oct 2025 — Plan Mode + Custom Agents -->
+      <div style="text-align:center;padding:0 4px;position:relative">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--amber);margin-bottom:18px;font-weight:700">OCT 2025</div>
+        <div style="width:16px;height:16px;border-radius:50%;background:var(--amber);margin:0 auto 14px;border:3px solid var(--bg);box-shadow:0 0 20px rgba(245,166,35,.7),0 0 0 1px rgba(245,166,35,.4)"></div>
+        <div style="font-size:13px;font-weight:800;color:var(--text);line-height:1.3">Modo Plan · <span style="color:var(--amber)">Custom Agents</span></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;line-height:1.4">Code Quality · Agent HQ</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER NARRATIVO -->
+  <div class="a5" style="margin-top:54px;text-align:center;max-width:760px">
+    <div style="display:inline-flex;align-items:center;gap:10px;padding:10px 20px;background:var(--s1);border:1px solid rgba(245,166,35,.3);border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber)">
+      <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)"></span>
+      Aquí entra esta clase
+    </div>
+    <p style="margin-top:18px;color:var(--text);font-size:16px;line-height:1.55">
+      <em style="font-style:normal;color:var(--amber);font-weight:600">Custom Agents</em> y <em style="font-style:normal;color:var(--teal);font-weight:600">MCP</em> son las piezas que <span style="color:var(--purple);font-weight:600">tú puedes diseñar</span>.<br>
+      Eso es lo que veremos en los próximos slides.
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+  05 — ESTRUCTURA .GITHUB (5 ARTEFACTOS)
 ══════════════════════════════════ -->
 <div class="slide" id="s4">
   <div class="split">
     <div>
-      <div class="eyebrow teal a1">03 — GitHub Copilot framework</div>
+      <div class="eyebrow teal a1">04 — GitHub Copilot framework</div>
       <h2 class="title a2">Los 5 artefactos<br><em class="teal">de configuración</em></h2>
       <p class="def teal a3" style="margin-bottom:20px">
         GitHub Copilot lee la carpeta <code style="color:var(--teal)">.github/</code><br>
         y carga cada artefacto según su rol:<br>
         siempre activo, auto-activado u on-demand.
       </p>
-      <div class="a4" style="display:flex;flex-direction:column;gap:8px;max-width:380px">
-        <div style="background:rgba(124,92,252,.08);border:1px solid rgba(124,92,252,.2);border-radius:10px;padding:10px 16px">
+      <div class="a4 artifact-row" data-artifact-row style="display:flex;flex-direction:column;gap:8px;max-width:380px">
+        <div class="artifact-card" data-artifact-card="1" role="button" tabindex="0" aria-label="Artefacto: instructions" style="background:rgba(124,92,252,.08);border:1px solid rgba(124,92,252,.2);border-radius:10px;padding:10px 16px">
           <div style="font-size:11px;font-weight:600;color:var(--purple);letter-spacing:.08em;margin-bottom:2px">INSTRUCTIONS</div>
           <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">Contexto base — siempre activo. Stack, idioma, prohibiciones globales</div>
         </div>
-        <div style="background:rgba(0,201,167,.06);border:1px solid rgba(0,201,167,.18);border-radius:10px;padding:10px 16px">
+        <div class="artifact-card" data-artifact-card="2" role="button" tabindex="0" aria-label="Artefacto: skills" style="background:rgba(0,201,167,.06);border:1px solid rgba(0,201,167,.18);border-radius:10px;padding:10px 16px">
           <div style="font-size:11px;font-weight:600;color:var(--teal);letter-spacing:.08em;margin-bottom:2px">SKILLS</div>
           <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">Capacidades especializadas — se auto-activan por contexto</div>
         </div>
-        <div style="background:rgba(245,166,35,.05);border:1px solid rgba(245,166,35,.15);border-radius:10px;padding:10px 16px">
+        <div class="artifact-card" data-artifact-card="3" role="button" tabindex="0" aria-label="Artefacto: agents" style="background:rgba(245,166,35,.05);border:1px solid rgba(245,166,35,.15);border-radius:10px;padding:10px 16px">
           <div style="font-size:11px;font-weight:600;color:var(--amber);letter-spacing:.08em;margin-bottom:2px">AGENTS</div>
           <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">Orquestan flujos complejos end-to-end multi-paso</div>
         </div>
-        <div style="background:rgba(78,168,222,.05);border:1px solid rgba(78,168,222,.15);border-radius:10px;padding:10px 16px">
-          <div style="font-size:11px;font-weight:600;color:var(--blue);letter-spacing:.08em;margin-bottom:2px">PROMPTS + COMMANDS</div>
-          <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">Punto de entrada del usuario — invocados con /nombre</div>
+        <div class="artifact-card" data-artifact-card="4" role="button" tabindex="0" aria-label="Artefacto: prompts" style="background:rgba(78,168,222,.05);border:1px solid rgba(78,168,222,.15);border-radius:10px;padding:10px 16px">
+          <div style="font-size:11px;font-weight:600;color:var(--blue);letter-spacing:.08em;margin-bottom:2px">PROMPTS</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">Punto de entrada del usuario — invocados con /nombre. Archivos *.prompt.md</div>
         </div>
       </div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:8px;max-width:380px;text-align:right">↳ click en cada artefacto</div>
     </div>
     <div class="a5">
-      <div class="fs-tree">
+      <div class="fs-tree" data-artifacts-tree>
         <div class="tree-root">
           <!-- root -->
-          <div class="tree-row dir">
+          <div class="tree-row dir is-root">
             <span class="fi">📁</span><span class="fname">.github/</span>
           </div>
           <!-- copilot-instructions.md -->
-          <div class="tree-row hl2">
+          <div class="tree-row hl2" data-artifact="1">
             <span class="tree-prefix">├──&nbsp;</span>
             <span class="fi">📄</span><span class="fname">copilot-instructions.md</span>
             <span class="badge always">siempre activo</span>
           </div>
           <!-- skills/ -->
-          <div class="tree-row dir">
+          <div class="tree-row dir" data-artifact="2">
             <span class="tree-prefix">├──&nbsp;</span>
             <span class="fi">📁</span><span class="fname">skills/</span>
           </div>
           <!-- react-frontend/ -->
-          <div class="tree-row hl">
+          <div class="tree-row hl" data-artifact="2">
             <span class="tree-prefix">│&nbsp;&nbsp;├──&nbsp;</span>
             <span class="fi">📁</span><span class="fname">react-frontend/</span>
             <span class="badge auto">auto-activa</span>
           </div>
-          <div class="tree-row" style="color:var(--dim)">
+          <div class="tree-row" data-artifact="2" style="color:var(--dim)">
             <span class="tree-prefix">│&nbsp;&nbsp;│&nbsp;&nbsp;└──&nbsp;</span>
             <span class="fi">📄</span><span class="fname">SKILL.md</span>
           </div>
           <!-- react-state/ -->
-          <div class="tree-row hl">
+          <div class="tree-row hl" data-artifact="2">
             <span class="tree-prefix">│&nbsp;&nbsp;├──&nbsp;</span>
             <span class="fi">📁</span><span class="fname">react-state/</span>
             <span class="badge auto">auto-activa</span>
           </div>
-          <div class="tree-row" style="color:var(--dim)">
+          <div class="tree-row" data-artifact="2" style="color:var(--dim)">
             <span class="tree-prefix">│&nbsp;&nbsp;│&nbsp;&nbsp;└──&nbsp;</span>
             <span class="fi">📄</span><span class="fname">SKILL.md</span>
           </div>
           <!-- react-ui/ -->
-          <div class="tree-row hl">
+          <div class="tree-row hl" data-artifact="2">
             <span class="tree-prefix">│&nbsp;&nbsp;└──&nbsp;</span>
             <span class="fi">📁</span><span class="fname">react-ui/</span>
             <span class="badge auto">auto-activa</span>
           </div>
-          <div class="tree-row" style="color:var(--dim)">
+          <div class="tree-row" data-artifact="2" style="color:var(--dim)">
             <span class="tree-prefix">│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└──&nbsp;</span>
             <span class="fi">📄</span><span class="fname">SKILL.md</span>
           </div>
           <!-- agents/ -->
-          <div class="tree-row dir">
+          <div class="tree-row dir" data-artifact="3">
             <span class="tree-prefix">├──&nbsp;</span>
             <span class="fi">📁</span><span class="fname">agents/</span>
           </div>
-          <div class="tree-row hl3">
+          <div class="tree-row hl3" data-artifact="3">
             <span class="tree-prefix">│&nbsp;&nbsp;└──&nbsp;</span>
-            <span class="fi">📄</span><span class="fname">react-developer.md</span>
+            <span class="fi">📄</span><span class="fname">react-developer.agent.md</span>
             <span class="badge ondemand">on-demand</span>
           </div>
           <!-- prompts/ -->
-          <div class="tree-row dir">
-            <span class="tree-prefix">├──&nbsp;</span>
+          <div class="tree-row dir" data-artifact="4">
+            <span class="tree-prefix">└──&nbsp;</span>
             <span class="fi">📁</span><span class="fname">prompts/</span>
           </div>
-          <div class="tree-row hl4">
-            <span class="tree-prefix">│&nbsp;&nbsp;└──&nbsp;</span>
+          <div class="tree-row hl4" data-artifact="4">
+            <span class="tree-prefix">&nbsp;&nbsp;&nbsp;├──&nbsp;</span>
             <span class="fi">📄</span><span class="fname">new-react-app.prompt.md</span>
-            <span class="badge cmd">/new-app</span>
+            <span class="badge cmd">/new-react-app</span>
           </div>
-          <!-- commands/ -->
-          <div class="tree-row dir">
-            <span class="tree-prefix">└──&nbsp;</span>
-            <span class="fi">📁</span><span class="fname">commands/</span>
-          </div>
-          <div class="tree-row hl4">
+          <div class="tree-row hl4" data-artifact="4">
             <span class="tree-prefix">&nbsp;&nbsp;&nbsp;└──&nbsp;</span>
-            <span class="fi">📄</span><span class="fname">add-feature.md</span>
+            <span class="fi">📄</span><span class="fname">add-feature.prompt.md</span>
             <span class="badge cmd">/add-feature</span>
           </div>
         </div>
@@ -426,7 +538,7 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 <div class="slide" id="s5">
   <div class="split">
     <div>
-      <div class="eyebrow teal a1">04 — skill anatomy</div>
+      <div class="eyebrow teal a1">05 — skill anatomy</div>
       <h2 class="title a2">Qué contiene<br><em class="teal">react-frontend</em></h2>
       <p class="def teal a3" style="margin-bottom:16px">
         El <strong style="color:#fff">frontmatter</strong> define cuándo activarse.<br>
@@ -455,47 +567,50 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
       <div style="font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:8px">3 skills · se activan juntas según contexto</div>
     </div>
     <div class="a5">
-      <div class="code-block">
+      <div class="code-block" data-skill-code>
         <div class="path">.github/skills/react-frontend/SKILL.md</div>
-        <div class="ln"><span class="n">1</span><span style="color:var(--dim)">---</span></div>
-        <div class="ln"><span class="n">2</span><span><span class="k">name:</span> <span class="v">react-frontend</span></span></div>
-        <div class="ln"><span class="n">3</span><span><span class="k">description:</span> <span class="s">&gt;-</span></span></div>
-        <div class="ln"><span class="n">4</span><span style="padding-left:16px"><span class="s">Activa al crear componentes React, hooks,</span></span></div>
-        <div class="ln"><span class="n">5</span><span style="padding-left:16px"><span class="s">features, estructura de carpetas o apps</span></span></div>
-        <div class="ln"><span class="n">6</span><span style="padding-left:16px"><span class="s">con Vite + TypeScript.</span></span></div>
-        <div class="ln"><span class="n">7</span><span style="color:var(--dim)">---</span></div>
-        <div class="ln"><span class="n">8</span><span></span></div>
-        <div class="ln"><span class="n">9</span><span><span class="k">## Estructura</span></span></div>
-        <div class="ln"><span class="n">10</span><span><span class="v">- Feature-based folders</span> <span class="c"># NO type-based</span></span></div>
-        <div class="ln"><span class="n">11</span><span><span class="v">- src/features/[nombre]/</span></span></div>
-        <div class="ln"><span class="n">12</span><span><span class="v">  ├── use[Nombre].ts</span> <span class="c"># lógica aquí</span></span></div>
-        <div class="ln"><span class="n">13</span><span><span class="v">  ├── [Nombre]List.tsx</span> <span class="c"># solo UI</span></span></div>
-        <div class="ln"><span class="n">14</span><span><span class="v">  └── [nombre].types.ts</span></span></div>
-        <div class="ln"><span class="n">15</span><span><span class="k">## Reglas</span></span></div>
-        <div class="ln"><span class="n">16</span><span><span class="req">- Prohibido: any, var, lógica en JSX</span></span></div>
-        <div class="ln"><span class="n">17</span><span><span class="v">- localStorage:</span> solo en services/</span></div>
+        <div class="ln" data-step="1"><span class="n">1</span><span style="color:var(--dim)">---</span></div>
+        <div class="ln" data-step="1"><span class="n">2</span><span><span class="k">name:</span> <span class="v">react-frontend</span></span></div>
+        <div class="ln" data-step="2"><span class="n">3</span><span><span class="k">description:</span> <span class="s">&gt;-</span></span></div>
+        <div class="ln" data-step="2"><span class="n">4</span><span style="padding-left:16px"><span class="s">Activa al crear componentes React, hooks,</span></span></div>
+        <div class="ln" data-step="2"><span class="n">5</span><span style="padding-left:16px"><span class="s">features, estructura de carpetas o apps</span></span></div>
+        <div class="ln" data-step="2"><span class="n">6</span><span style="padding-left:16px"><span class="s">con Vite + TypeScript.</span></span></div>
+        <div class="ln" data-step="1"><span class="n">7</span><span style="color:var(--dim)">---</span></div>
+        <div class="ln" data-step="3"><span class="n">8</span><span></span></div>
+        <div class="ln" data-step="3"><span class="n">9</span><span><span class="k">## Estructura</span></span></div>
+        <div class="ln" data-step="3"><span class="n">10</span><span><span class="v">- Feature-based folders</span> <span class="c"># NO type-based</span></span></div>
+        <div class="ln" data-step="3"><span class="n">11</span><span><span class="v">- src/features/[nombre]/</span></span></div>
+        <div class="ln" data-step="3"><span class="n">12</span><span><span class="v">  ├── use[Nombre].ts</span> <span class="c"># lógica aquí</span></span></div>
+        <div class="ln" data-step="3"><span class="n">13</span><span><span class="v">  ├── [Nombre]List.tsx</span> <span class="c"># solo UI</span></span></div>
+        <div class="ln" data-step="3"><span class="n">14</span><span><span class="v">  └── [nombre].types.ts</span></span></div>
+        <div class="ln" data-step="3"><span class="n">15</span><span><span class="k">## Reglas</span></span></div>
+        <div class="ln" data-step="3"><span class="n">16</span><span><span class="req">- Prohibido: any, var, lógica en JSX</span></span></div>
+        <div class="ln" data-step="3"><span class="n">17</span><span><span class="v">- localStorage:</span> solo en services/</span></div>
       </div>
       <!-- FRONTMATTER NOTE -->
       <div style="margin-top:14px;background:rgba(124,92,252,.06);border:1px solid rgba(124,92,252,.2);border-radius:12px;padding:14px 18px">
-        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:10px">⚡ cómo funciona la carga lazy</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple)">⚡ cómo funciona la carga lazy</div>
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)">↳ click en cada paso</div>
+        </div>
         <!-- step row -->
-        <div style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px">
+        <div class="step-row" data-step-row style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px">
           <!-- step 1 -->
-          <div style="background:var(--s2);border:1px solid rgba(124,92,252,.25);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
+          <div class="step-card" data-step-card="1" role="button" tabindex="0" aria-label="Paso 1: lee solo el frontmatter" style="background:var(--s2);border:1px solid rgba(124,92,252,.25);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
             <div style="font-size:9px;color:var(--purple);margin-bottom:3px;letter-spacing:.1em">PASO 1</div>
             <div style="color:#fff;font-weight:600;margin-bottom:2px">Lee solo el frontmatter</div>
             <div style="color:var(--muted);font-size:10px">name + description de todas las skills — muy liviano</div>
           </div>
           <div style="color:var(--dim);font-size:14px;flex-shrink:0">→</div>
           <!-- step 2 -->
-          <div style="background:var(--s2);border:1px solid rgba(0,201,167,.2);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
+          <div class="step-card" data-step-card="2" role="button" tabindex="0" aria-label="Paso 2: infiere relevancia" style="background:var(--s2);border:1px solid rgba(0,201,167,.2);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
             <div style="font-size:9px;color:var(--teal);margin-bottom:3px;letter-spacing:.1em">PASO 2</div>
             <div style="color:#fff;font-weight:600;margin-bottom:2px">Infiere relevancia</div>
             <div style="color:var(--muted);font-size:10px">¿el contexto coincide con la description? → sí / no</div>
           </div>
           <div style="color:var(--dim);font-size:14px;flex-shrink:0">→</div>
           <!-- step 3 -->
-          <div style="background:var(--s2);border:1px solid rgba(245,166,35,.2);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
+          <div class="step-card" data-step-card="3" role="button" tabindex="0" aria-label="Paso 3: carga el body completo" style="background:var(--s2);border:1px solid rgba(245,166,35,.2);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
             <div style="font-size:9px;color:var(--amber);margin-bottom:3px;letter-spacing:.1em">PASO 3</div>
             <div style="color:#fff;font-weight:600;margin-bottom:2px">Carga el body completo</div>
             <div style="color:var(--muted);font-size:10px">solo si la skill fue marcada como relevante</div>
@@ -519,7 +634,7 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 <div class="slide" id="s6" style="align-items:flex-start;justify-content:flex-start;padding:44px 80px">
   <div style="width:100%;display:flex;align-items:baseline;justify-content:space-between;margin-bottom:24px">
     <div>
-      <div class="eyebrow amber a1">05 — caso de uso · fase 1</div>
+      <div class="eyebrow amber a1">06 — caso de uso · fase 1</div>
       <h2 class="title a2" style="font-size:clamp(28px,3.2vw,44px)">El agente planifica<br><em class="amber">antes de construir</em></h2>
     </div>
     <div class="a2" style="background:var(--s1);border:1px solid rgba(0,201,167,.25);border-radius:10px;padding:10px 18px;font-family:var(--mono);font-size:12px;color:var(--text);display:flex;align-items:center;gap:10px">
@@ -563,7 +678,7 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 ══════════════════════════════════ -->
 <div class="slide" id="s7" style="align-items:flex-start;justify-content:flex-start;padding:44px 80px">
   <div style="margin-bottom:28px">
-    <div class="eyebrow teal a1">05 — caso de uso · fase 2</div>
+    <div class="eyebrow teal a1">06 — caso de uso · fase 2</div>
     <h2 class="title a2" style="font-size:clamp(28px,3.2vw,44px)">El agente construye<br><em class="teal">itera hasta que funciona</em></h2>
   </div>
   <div class="flow a3" style="max-width:100%;width:100%">
@@ -593,7 +708,7 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
   08 — CITAS OFICIALES
 ══════════════════════════════════ -->
 <div class="slide" id="s8">
-  <div class="eyebrow a1" style="text-align:center">06 — fuentes oficiales</div>
+  <div class="eyebrow a1" style="text-align:center">07 — fuentes oficiales</div>
   <h2 class="title a2" style="text-align:center;margin-bottom:32px">Lo dicen ellos mismos</h2>
   <div class="quotes-grid a3">
     <div class="qcard q-oa">
@@ -706,6 +821,94 @@ document.addEventListener('keydown',e=>{
 let tx=0;
 document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX},{passive:true});
 document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)dx<0?go(cur+1):go(cur-1);},{passive:true});
+
+// ── Interacción slide "skill anatomy": click en una card resalta su tramo del código ──
+(function(){
+  const code=document.querySelector('[data-skill-code]');
+  const row=document.querySelector('[data-step-row]');
+  if(!code||!row)return;
+  const cards=row.querySelectorAll('.step-card');
+  const lines=code.querySelectorAll('.ln');
+
+  function clear(){
+    code.classList.remove('has-active');
+    row.classList.remove('has-active');
+    cards.forEach(c=>c.classList.remove('is-active'));
+    lines.forEach(l=>l.classList.remove('is-hl'));
+  }
+
+  function activate(step){
+    code.classList.add('has-active');
+    row.classList.add('has-active');
+    cards.forEach(c=>c.classList.toggle('is-active',c.dataset.stepCard===step));
+    lines.forEach(l=>{
+      const s=l.dataset.step;
+      // Paso 1 (frontmatter): incluye delimitadores Y description
+      // Paso 2 (description): solo description
+      // Paso 3 (body): solo body
+      const match=(step==='1'&&(s==='1'||s==='2'))||(step==='2'&&s==='2')||(step==='3'&&s==='3');
+      l.classList.toggle('is-hl',match);
+    });
+  }
+
+  cards.forEach(card=>{
+    card.addEventListener('click',()=>{
+      const step=card.dataset.stepCard;
+      if(card.classList.contains('is-active'))clear();
+      else activate(step);
+    });
+    card.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();card.click();}
+    });
+  });
+
+  // Al salir del slide, limpia el estado para que al volver no quede sticky
+  const slide=code.closest('.slide');
+  if(slide){
+    new MutationObserver(()=>{if(!slide.classList.contains('active'))clear();})
+      .observe(slide,{attributes:true,attributeFilter:['class']});
+  }
+})();
+
+// ── Interacción slide "5 artefactos": click en una card resalta sus archivos en el árbol ──
+(function(){
+  const tree=document.querySelector('[data-artifacts-tree]');
+  const row=document.querySelector('[data-artifact-row]');
+  if(!tree||!row)return;
+  const cards=row.querySelectorAll('.artifact-card');
+  const treeRows=tree.querySelectorAll('.tree-row');
+
+  function clear(){
+    tree.classList.remove('has-active');
+    row.classList.remove('has-active');
+    cards.forEach(c=>c.classList.remove('is-active'));
+    treeRows.forEach(r=>r.classList.remove('is-hl'));
+  }
+
+  function activate(art){
+    tree.classList.add('has-active');
+    row.classList.add('has-active');
+    cards.forEach(c=>c.classList.toggle('is-active',c.dataset.artifactCard===art));
+    treeRows.forEach(r=>r.classList.toggle('is-hl',r.dataset.artifact===art));
+  }
+
+  cards.forEach(card=>{
+    card.addEventListener('click',()=>{
+      const art=card.dataset.artifactCard;
+      if(card.classList.contains('is-active'))clear();
+      else activate(art);
+    });
+    card.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();card.click();}
+    });
+  });
+
+  const slide=tree.closest('.slide');
+  if(slide){
+    new MutationObserver(()=>{if(!slide.classList.contains('active'))clear();})
+      .observe(slide,{attributes:true,attributeFilter:['class']});
+  }
+})();
 </script>
 </body>
 </html>

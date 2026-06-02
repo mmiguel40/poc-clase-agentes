@@ -6,7 +6,7 @@ agent: react-developer
 
 # Comando: Agregar Feature
 
-Actúa como el agente `react-developer` definido en `.github/agents/react-developer.md`. El usuario quiere **agregar una nueva feature a un proyecto React ya existente**, respetando la arquitectura y convenciones del proyecto actual.
+Actúa como el agente `react-developer` definido en `.github/agents/react-developer.agent.md`. El usuario quiere **agregar una nueva feature a un proyecto React ya existente**, respetando la arquitectura y convenciones del proyecto actual.
 
 Feature solicitada: "{{feature}}"
 

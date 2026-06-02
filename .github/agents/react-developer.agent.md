@@ -115,9 +115,7 @@ Cada componente sigue las reglas de `react-components.instructions.md`.
 
 ### Paso 8: Actualizar `App.tsx`
 
-Componer el layout principal usando los componentes de la feature. Incluir header, contenedor responsivo y posiblemente toggle de dark mode si aplica.
-
-- El diseño debe sentirse moderno y elegante, con uso de superficies tipo vidrio esmerilado (`glassmorphism`) en tarjetas y paneles.
+Componer el layout principal usando los componentes de la feature. Incluir header, contenedor responsivo y posiblemente toggle de dark mode si aplica. El estilo visual lo define la skill `react-ui` — no duplicar decisiones de estética aquí.
 
 ### Paso 9: Validación
 

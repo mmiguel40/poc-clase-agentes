@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\instructions\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\skills\\\\react-frontend\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\skills\\\\react-state\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\skills\\\\react-ui\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\agents\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\prompts\" \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\\\\.github\\\\commands\")",
+      "Bash(git -C \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\" status)",
+      "WebSearch",
+      "WebFetch(domain:docs.github.com)",
+      "WebFetch(domain:code.visualstudio.com)",
+      "WebFetch(domain:github.blog)",
+      "WebFetch(domain:github.com)",
+      "Bash(git -C \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\" mv \".github/agents/react-developer.md\" \".github/agents/react-developer.agent.md\")",
+      "Bash(git -C \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\" mv \".github/commands/add-feature.md\" \".github/prompts/add-feature.prompt.md\")",
+      "Bash(git -C \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\" status --short)"
+    ]
+  }
+}

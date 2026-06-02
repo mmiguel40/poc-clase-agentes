@@ -88,8 +88,8 @@ GitHub Copilot Agent Mode lee la carpeta `.github/` y compone el contexto del ag
 | 1 | **Instructions globales** | `.github/copilot-instructions.md` | Siempre | Contexto base: stack, naming, prohibiciones |
 | 2 | **Instructions por archivo** | `.github/instructions/*.instructions.md` | Por glob (`applyTo`) | Reglas que aplican solo a ciertos tipos de archivo |
 | 3 | **Skills** | `.github/skills/<nombre>/SKILL.md` | Auto-activación por contexto (description) | Conocimiento de dominio: patrones, arquitectura, decisiones |
-| 4 | **Agents** | `.github/agents/<nombre>.md` | Invocados por nombre desde prompts/commands | Orquestadores con protocolo propio (planificar → confirmar → construir) |
-| 5 | **Prompts / Commands** | `.github/prompts/*.prompt.md` y `.github/commands/*.md` | Invocados con `/nombre` por el usuario | Puntos de entrada parametrizables |
+| 4 | **Agents** | `.github/agents/<nombre>.agent.md` | Invocados por nombre desde prompts (atributo `agent:`) | Orquestadores con protocolo propio (planificar → confirmar → construir) |
+| 5 | **Prompts** | `.github/prompts/*.prompt.md` | Invocados con `/nombre` por el usuario | Puntos de entrada parametrizables. **Reemplazan el concepto de "commands"** en Copilot — los slash-commands SON prompt files. |
 
 ### Diferencia clave: Skills vs Instructions
 
@@ -119,11 +119,10 @@ GitHub Copilot Agent Mode lee la carpeta `.github/` y compone el contexto del ag
     │   ├── react-state/SKILL.md                  # ③ Decisión de gestión de estado
     │   └── react-ui/SKILL.md                     # ③ Tailwind, dark mode, a11y
     ├── agents/
-    │   └── react-developer.md                    # ④ Agente con protocolo de 2 fases
-    ├── prompts/
-    │   └── new-react-app.prompt.md               # ⑤ /new-react-app — crear app desde cero
-    └── commands/
-        └── add-feature.md                        # ⑤ /add-feature — agregar feature
+    │   └── react-developer.agent.md              # ④ Agente con protocolo de 2 fases
+    └── prompts/
+        ├── new-react-app.prompt.md               # ⑤ /new-react-app — crear app desde cero
+        └── add-feature.prompt.md                 # ⑤ /add-feature — agregar feature
 ```
 
 ---
@@ -293,9 +292,9 @@ description: >-                           # crítico: el LLM lee esto para decid
 
 La `description` actúa como un **clasificador**: cuanto más explícita sobre **cuándo activarla**, mejor activa el agente automáticamente.
 
-### ④ `agents/react-developer.md` — Orquestador
+### ④ `agents/react-developer.agent.md` — Orquestador
 
-> **Es invocado por nombre desde un prompt o command (`agent: react-developer`).**
+> **Es invocado por nombre desde un prompt (atributo `agent: react-developer` en el frontmatter del `.prompt.md`).**
 
 Define un protocolo de ejecución reutilizable. En este caso, el **protocolo de dos fases**:
 
@@ -304,7 +303,7 @@ Define un protocolo de ejecución reutilizable. En este caso, el **protocolo de 
 
 Incluye **reglas de iteración**: qué hacer si el build falla, cuándo dividir componentes, qué nunca hardcodear.
 
-### ⑤ `prompts/*.prompt.md` y `commands/*.md` — Puntos de entrada
+### ⑤ `prompts/*.prompt.md` — Puntos de entrada
 
 > **Invocados por el usuario con `/nombre` desde el chat.**
 
@@ -318,7 +317,9 @@ agent: react-developer    # ← apunta al agente que ejecutará el prompt
 ---
 ```
 
-El body del prompt es el mensaje que recibirá el agente, incluyendo placeholders como `{{description}}` que el usuario rellena al invocar el comando.
+El body del prompt es el mensaje que recibirá el agente, incluyendo placeholders como `{{description}}` que el usuario rellena al invocar el prompt con `/nombre`.
+
+> **Nota sobre convenciones de GitHub Copilot:** los slash-commands (`/algo`) SON archivos `*.prompt.md`. No existe una carpeta `commands/` separada en el spec oficial — eso es una convención de Claude Code, no de Copilot. Para máxima compatibilidad con Copilot, todo lo invocable con `/` vive en `.github/prompts/` con extensión `.prompt.md`.
 
 ---
 
@@ -355,7 +356,7 @@ Casi siempre vale la pena un protocolo de **planificar → confirmar → ejecuta
 - Para una API: scaffold → DB schema → migrations → endpoints → tests → `pytest`/`npm test`.
 - Para infraestructura: plan → `terraform plan` / `bicep what-if` → confirmación → `apply`.
 
-### 5. Exponé prompts/commands amigables
+### 5. Exponé prompts amigables
 
 Nombres cortos, descripción clara, un placeholder bien nombrado.
 

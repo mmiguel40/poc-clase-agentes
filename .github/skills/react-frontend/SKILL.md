@@ -10,8 +10,6 @@ description: >-
 
 Esta skill define la **estructura de carpetas, separación de responsabilidades y patrones de organización** para todo proyecto React en este repositorio.
 
-> Cuando se crea una app React nueva desde cero, siempre se genera dentro de una subcarpeta nueva en la raíz del repositorio. No se debe crear la app en el directorio raíz ni sobrescribir los archivos existentes del proyecto principal.
-
 ## Estructura de Carpetas (Feature-Based)
 
 La organización es **feature-based**, no type-based. Cada feature es autocontenida.

@@ -6,7 +6,7 @@ agent: react-developer
 
 # Prompt: Nueva Aplicación React
 
-Actúa como el agente `react-developer` definido en `.github/agents/react-developer.md`.
+Actúa como el agente `react-developer` definido en `.github/agents/react-developer.agent.md`.
 
 El usuario quiere crear una nueva aplicación React. Su descripción es:
 
