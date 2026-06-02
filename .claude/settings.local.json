@@ -10,7 +10,8 @@
       "WebFetch(domain:github.com)",
       "Bash(git -C \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\" mv \".github/agents/react-developer.md\" \".github/agents/react-developer.agent.md\")",
       "Bash(git -C \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\" mv \".github/commands/add-feature.md\" \".github/prompts/add-feature.prompt.md\")",
-      "Bash(git -C \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\" status --short)"
+      "Bash(git -C \"C:\\\\Users\\\\mmigu\\\\OneDrive\\\\ZehcnasIT\\\\poc-clase-agentes\" status --short)",
+      "WebFetch(domain:msanchez.tech)"
     ]
   }
 }

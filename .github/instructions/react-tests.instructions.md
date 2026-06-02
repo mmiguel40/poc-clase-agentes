@@ -51,16 +51,16 @@ Si el service tiene una capa propia (recomendado), mockear el service directamen
 Cada bloque de test debe seguir **Arrange → Act → Assert** con comentarios explícitos:
 
 ```ts
-it('debería marcar una tarea como completada al hacer clic en el checkbox', async () => {
+it('debería marcar una cotización como aceptada al cambiar el estado', async () => {
   // Arrange: render del componente y datos iniciales
   const user = userEvent.setup()
-  render(<TodoList />)
+  render(<CotizacionList />)
 
   // Act: el usuario interactúa
-  await user.click(screen.getByRole('checkbox', { name: /comprar pan/i }))
+  await user.selectOptions(screen.getByLabelText(/estado/i), 'aceptada')
 
   // Assert: el resultado visible
-  expect(screen.getByRole('checkbox', { name: /comprar pan/i })).toBeChecked()
+  expect(screen.getByText(/aceptada/i)).toBeInTheDocument()
 })
 ```
 
@@ -68,9 +68,9 @@ it('debería marcar una tarea como completada al hacer clic en el checkbox', asy
 
 Los nombres de los `describe` y `it` van **en español**, redactados como una frase descriptiva del comportamiento esperado:
 
-- `describe('TodoList', ...)`
-- `it('debería mostrar un mensaje cuando no hay tareas', ...)`
-- `it('no debería permitir agregar tareas vacías', ...)`
+- `describe('CotizacionList', ...)`
+- `it('debería mostrar un mensaje cuando no hay cotizaciones', ...)`
+- `it('no debería permitir guardar una cotización con monto cero o negativo', ...)`
 
 ## Cobertura Mínima
 

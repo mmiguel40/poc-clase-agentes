@@ -76,23 +76,23 @@ Cada capa tiene una responsabilidad única.
 **Nunca acceder a `localStorage` directamente en componentes ni hooks.** Toda persistencia se encapsula en un service con funciones nombradas:
 
 ```ts
-// src/features/todo-list/todo.service.ts
-import type { TodoItem } from './todo.types'
+// src/features/cotizaciones/cotizacion.service.ts
+import type { Cotizacion } from './cotizacion.types'
 
-const STORAGE_KEY = 'todos'
+const STORAGE_KEY = 'cotizaciones'
 
-export const todoService = {
-  getAll: (): TodoItem[] => {
+export const cotizacionService = {
+  getAll: (): Cotizacion[] => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
-      return raw ? (JSON.parse(raw) as TodoItem[]) : []
+      return raw ? (JSON.parse(raw) as Cotizacion[]) : []
     } catch {
       return []
     }
   },
 
-  save: (todos: TodoItem[]): void => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+  save: (cotizaciones: Cotizacion[]): void => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(cotizaciones))
   },
 
   clear: (): void => {
@@ -106,13 +106,13 @@ export const todoService = {
 El hook debe inicializar el estado **leyendo del service con una función lazy**, no en un `useEffect`. Esto evita un render inicial vacío seguido de un segundo render con los datos.
 
 ```ts
-// src/features/todo-list/useTodos.ts
+// src/features/cotizaciones/useCotizaciones.ts
 import { useState } from 'react'
-import { todoService } from './todo.service'
-import type { TodoItem } from './todo.types'
+import { cotizacionService } from './cotizacion.service'
+import type { Cotizacion } from './cotizacion.types'
 
-export function useTodos() {
-  const [todos, setTodos] = useState<TodoItem[]>(() => todoService.getAll())
+export function useCotizaciones() {
+  const [cotizaciones, setCotizaciones] = useState<Cotizacion[]>(() => cotizacionService.getAll())
   // ...
 }
 ```
@@ -125,11 +125,11 @@ Persistir el estado al service usando `useEffect` con el estado como dependencia
 import { useEffect } from 'react'
 
 useEffect(() => {
-  todoService.save(todos)
-}, [todos])
+  cotizacionService.save(cotizaciones)
+}, [cotizaciones])
 ```
 
-Cualquier cambio en `todos` se persiste automáticamente. El componente no sabe nada de esto.
+Cualquier cambio en `cotizaciones` se persiste automáticamente. El componente no sabe nada de esto.
 
 ## Resumen del Flujo
 

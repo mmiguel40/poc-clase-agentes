@@ -175,10 +175,10 @@ export function useTheme() {
 
 - Todo `<input>` debe tener un `<label>` asociado vía `htmlFor`/`id`:
   ```tsx
-  <label htmlFor="todo-title" className="block text-sm font-medium">
-    Título de la tarea
+  <label htmlFor="cotizacion-cliente" className="block text-sm font-medium">
+    Nombre del cliente
   </label>
-  <input id="todo-title" type="text" className="..." />
+  <input id="cotizacion-cliente" type="text" className="..." />
   ```
 - Inputs de búsqueda o filtros: envolver el contenedor con `role="search"`.
 

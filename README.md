@@ -3,7 +3,7 @@
 > Material de clase y POC práctica del glosario IA 2025–2026.
 > Aprende qué es un agente de IA, cómo se compone, y cómo configurar uno real con GitHub Copilot Agent Mode usando los 5 artefactos del framework.
 
-**🔗 Repo del ejercicio:** https://github.com/mmiguel40/poc-clase-agentes
+**🔗 Repo del ejercicio:** https://github.com/msanchez-labs/poc-clase-agentes
 
 Este repositorio acompaña la sesión **"Agentes de IA — GitHub Copilot Framework"** y contiene tanto el material teórico (slides) como una **POC funcional**: la configuración completa de un agente que construye aplicaciones React frontend desde una descripción en lenguaje natural.
 
@@ -153,12 +153,12 @@ Verifica en `settings.json` (la mayoría vienen por defecto desde VS Code 1.10+)
 
 ## Quick Start
 
-**Repo del ejercicio:** [github.com/mmiguel40/poc-clase-agentes](https://github.com/mmiguel40/poc-clase-agentes)
+**Repo del ejercicio:** [github.com/msanchez-labs/poc-clase-agentes](https://github.com/msanchez-labs/poc-clase-agentes)
 
 ### 1. Clonar el repo
 
 ```bash
-git clone https://github.com/mmiguel40/poc-clase-agentes.git
+git clone https://github.com/msanchez-labs/poc-clase-agentes.git
 cd poc-clase-agentes
 ```
 
@@ -180,7 +180,7 @@ VS Code detectará automáticamente `.github/copilot-instructions.md` y los arch
 En el chat escribe:
 
 ```
-/new-react-app una todo list con prioridades y dark mode
+/new-react-app un tablero interno de seguimiento de cotizaciones con filtros por cliente y estado
 ```
 
 El agente generará el **plan de arquitectura** y esperará tu confirmación antes de construir.
@@ -366,7 +366,7 @@ Nombres cortos, descripción clara, un placeholder bien nombrado.
 
 ### Slides
 
-**En línea (GitHub Pages):** https://mmiguel40.github.io/poc-clase-agentes/
+**En línea (GitHub Pages):** https://msanchez-labs.github.io/poc-clase-agentes/
 
 **Localmente:** abre [`index.html`](index.html) en cualquier navegador moderno. Es una presentación HTML de 9 slides autocontenida (sin dependencias externas).
 
@@ -421,7 +421,7 @@ Si quieres usar esto como **plantilla**:
 
 ```bash
 # Clona solo la carpeta .github
-git clone https://github.com/mmiguel40/poc-clase-agentes.git temp
+git clone https://github.com/msanchez-labs/poc-clase-agentes.git temp
 cp -r temp/.github tu-proyecto/
 rm -rf temp
 

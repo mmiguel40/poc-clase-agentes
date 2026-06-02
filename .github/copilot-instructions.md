@@ -19,6 +19,31 @@ Estas instrucciones se aplican a todas las interacciones del agente con este rep
 - **Comentarios en el código:** español
 - **Mensajes para el usuario y documentación:** español
 
+## ⚠️ REGLA CRÍTICA — Ubicación del Código Generado
+
+**Esta regla tiene prioridad sobre el resto del documento. Aplica a CUALQUIER generación de código (apps nuevas, features, componentes, services, etc.) y debe verificarse antes de cada `Write` o `Edit`.**
+
+### Cuando creas una app nueva (ej. `/new-react-app`)
+
+- **SIEMPRE** dentro de una subcarpeta nueva en la raíz: `npm create vite@latest [app-folder] -- --template react-ts`.
+- **NUNCA** scaffoldees en la raíz (`.`). Prohibido `npm create vite@latest . ...`.
+- **NUNCA** modifiques, sobrescribas ni borres archivos preexistentes en la raíz del repositorio. Específicamente: el `index.html` de la raíz, `README.md`, `LICENSE`, `.github/`, `.git/`, ni cualquier otra carpeta o archivo existente. Esos archivos pertenecen al repo padre (esta guía/clase) y son intocables.
+
+### Cuando agregas una feature a una app existente (ej. `/add-feature`)
+
+- La feature vive **únicamente** dentro de `[app-folder]/src/features/[nombre-feature]/`.
+- Está permitido modificar `[app-folder]/src/App.tsx` para integrar la nueva feature.
+- Si necesitas tocar cualquier archivo **fuera de `[app-folder]/`**, **detente y pregunta al usuario antes de proceder**.
+
+### Verificación obligatoria antes de cada Write/Edit
+
+Responde mentalmente: *"¿esta ruta empieza con `[app-folder]/`?"*
+
+- ✅ Sí → adelante.
+- ❌ No → **detente**. Pregunta al usuario o reconsidera el plan.
+
+Si todavía no decidiste el nombre del `[app-folder]`, debes elegirlo y declararlo **antes** de cualquier comando de generación.
+
 ## Prohibiciones Globales (Reglas Duras)
 
 Las siguientes prácticas están prohibidas en todo el repositorio sin excepción:
@@ -33,15 +58,15 @@ Las siguientes prácticas están prohibidas en todo el repositorio sin excepció
 
 | Elemento | Convención | Ejemplo |
 |---|---|---|
-| Componentes | PascalCase | `TodoList` |
-| Hooks | `use` + PascalCase | `useTodos` |
-| Archivos de componentes | PascalCase.tsx | `TodoList.tsx` |
-| Archivos de hooks | camelCase.ts | `useTodos.ts` |
-| Archivos de services | camelCase.service.ts | `todo.service.ts` |
-| Archivos de tipos | camelCase.types.ts | `todo.types.ts` |
-| Carpetas de features | kebab-case | `todo-list/` |
-| Interfaces / Types | PascalCase descriptivo | `TodoItem` (NO `ITodo`) |
-| Enums | PascalCase | `TodoStatus` |
+| Componentes | PascalCase | `CotizacionList` |
+| Hooks | `use` + PascalCase | `useCotizaciones` |
+| Archivos de componentes | PascalCase.tsx | `CotizacionList.tsx` |
+| Archivos de hooks | camelCase.ts | `useCotizaciones.ts` |
+| Archivos de services | camelCase.service.ts | `cotizacion.service.ts` |
+| Archivos de tipos | camelCase.types.ts | `cotizacion.types.ts` |
+| Carpetas de features | kebab-case | `cotizaciones/` |
+| Interfaces / Types | PascalCase descriptivo | `Cotizacion` (NO `ICotizacion`) |
+| Enums | PascalCase | `EstadoCotizacion` |
 | Constantes globales | UPPER_SNAKE_CASE | `MAX_ITEMS` |
 
 ## Reglas Operativas para el Agente

@@ -67,18 +67,18 @@ Cuando un estado debe compartirse entre 2 y 4 componentes hermanos o anidados si
 
 - **Un Context por dominio**, no un Context global con todo dentro.
 - **Separar Context de valor y Context de dispatch** para evitar re-renders innecesarios:
-  - `TodoStateContext` (datos)
-  - `TodoDispatchContext` (acciones)
+  - `CotizacionStateContext` (datos)
+  - `CotizacionDispatchContext` (acciones)
 - Siempre proveer un custom hook para consumir el Context:
 
 ```ts
 import { createContext, useContext } from 'react'
 
-const TodoContext = createContext<TodoContextValue | null>(null)
+const CotizacionContext = createContext<CotizacionContextValue | null>(null)
 
-export const useTodoContext = () => {
-  const ctx = useContext(TodoContext)
-  if (!ctx) throw new Error('useTodoContext debe usarse dentro de TodoProvider')
+export const useCotizacionContext = () => {
+  const ctx = useContext(CotizacionContext)
+  if (!ctx) throw new Error('useCotizacionContext debe usarse dentro de CotizacionProvider')
   return ctx
 }
 ```
@@ -97,16 +97,21 @@ Cuando el estado se necesita en 5+ componentes, o cuando las actualizaciones son
 ```ts
 import { create } from 'zustand'
 
-interface TodoStore {
-  todos: TodoItem[]
-  addTodo: (text: string) => void
-  removeTodo: (id: string) => void
+interface CotizacionStore {
+  cotizaciones: Cotizacion[]
+  addCotizacion: (cliente: string, monto: number) => void
+  removeCotizacion: (id: string) => void
 }
 
-export const useTodoStore = create<TodoStore>((set) => ({
-  todos: [],
-  addTodo: (text) => set((state) => ({ todos: [...state.todos, { id: crypto.randomUUID(), text }] })),
-  removeTodo: (id) => set((state) => ({ todos: state.todos.filter((t) => t.id !== id) })),
+export const useCotizacionStore = create<CotizacionStore>((set) => ({
+  cotizaciones: [],
+  addCotizacion: (cliente, monto) => set((state) => ({
+    cotizaciones: [
+      ...state.cotizaciones,
+      { id: crypto.randomUUID(), cliente, monto, estado: 'enviada', fechaEnvio: new Date().toISOString() },
+    ],
+  })),
+  removeCotizacion: (id) => set((state) => ({ cotizaciones: state.cotizaciones.filter((c) => c.id !== id) })),
 }))
 ```
 

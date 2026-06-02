@@ -20,8 +20,8 @@ Un componente NO debe:
 ## Props
 
 - Props siempre tipadas con una `interface` explícita declarada en el mismo archivo (o en `.types.ts` si se reutiliza).
-- Naming de la interface: `[NombreComponente]Props`. Ejemplo: `TodoListProps`.
-- **Nunca pasar más de 5 props a un componente.** Si se necesitan más, agrupar en un objeto de configuración (`config: TodoListConfig`).
+- Naming de la interface: `[NombreComponente]Props`. Ejemplo: `CotizacionListProps`.
+- **Nunca pasar más de 5 props a un componente.** Si se necesitan más, agrupar en un objeto de configuración (`config: CotizacionListConfig`).
 - Evitar props booleanas múltiples que representen estados mutuamente excluyentes — usar una unión discriminada.
 
 ## Listas
@@ -61,16 +61,16 @@ Cada archivo `.tsx` debe seguir este orden estricto:
 import { useState } from 'react'
 import { Pencil } from 'lucide-react'
 
-import { useTodos } from './useTodos'
-import type { TodoItem } from './todo.types'
+import { useCotizaciones } from './useCotizaciones'
+import type { Cotizacion } from './cotizacion.types'
 
 // 2. Interface de Props
-interface TodoListProps {
-  filter: 'all' | 'active' | 'completed'
+interface CotizacionListProps {
+  filter: 'todas' | 'enviada' | 'aceptada' | 'rechazada' | 'vencida'
 }
 
 // 3. Componente
-export default function TodoList({ filter }: TodoListProps) {
+export default function CotizacionList({ filter }: CotizacionListProps) {
   // ...
 }
 

@@ -23,7 +23,7 @@ Sigues **siempre** un protocolo de dos fases. **No saltarse ningún paso.**
 ```markdown
 📋 PLAN DE ARQUITECTURA
 
-**Entidades:** [lista de entidades del dominio, ej: TodoItem, TodoFilter]
+**Entidades:** [lista de entidades del dominio, ej: Cotizacion, EstadoCotizacion]
 
 **Modelo de datos:**
 [interfaces TypeScript de cada entidad con sus campos y tipos, en bloque de código]
@@ -65,7 +65,23 @@ Sigues **siempre** un protocolo de dos fases. **No saltarse ningún paso.**
 
 Solo tras confirmación explícita del usuario, ejecutas la construcción en este orden exacto.
 
+> ### ⚠️ REGLA CRÍTICA — antes de escribir el primer archivo
+>
+> **Todo el código de esta app vive dentro de `[app-folder]/`. NUNCA en la raíz del repositorio.**
+>
+> Específicamente: el `index.html` que existe en la raíz del repositorio NO es de tu app — es la guía visual del repo padre. **Está estrictamente prohibido modificarlo, sobrescribirlo o borrarlo.** Lo mismo aplica a `README.md`, `LICENSE`, `.github/` y cualquier otro archivo o carpeta preexistente.
+>
+> Si en cualquier momento estás por escribir una ruta que no empieza con `[app-folder]/`, **DETENTE** y reconsidera.
+
 ### Paso 1: Scaffold del Proyecto
+
+**Checklist antes de ejecutar (obligatorio):**
+
+1. ✅ El nombre del `[app-folder]` está decidido y declarado al usuario.
+2. ✅ Ese folder **no existe todavía** en la raíz del repo (ejecuta `ls` para verificar).
+3. ✅ No vas a usar `.` ni el nombre de ninguna carpeta existente como destino.
+
+Solo entonces ejecuta:
 
 ```bash
 npm create vite@latest [app-folder] -- --template react-ts
@@ -76,7 +92,10 @@ npx tailwindcss init -p
 npm install lucide-react clsx tailwind-merge
 ```
 
-- Usa siempre una subcarpeta nueva dentro de la raíz del repositorio para la app React. No scaffoldees en la raíz del repositorio ni sobrescribas archivos existentes allí.
+**Prohibido:**
+- ❌ `npm create vite@latest . ...` (scaffold en la raíz)
+- ❌ Cualquier sobrescritura de archivos en la raíz del repositorio
+- ❌ Pasar al Paso 2 sin haber ejecutado `cd [app-folder]`
 
 ### Paso 2: Configurar Tailwind
 
