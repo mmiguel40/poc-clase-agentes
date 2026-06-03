@@ -3,6 +3,7 @@
 > Material de clase y POC práctica del glosario IA 2025–2026.
 > Aprende qué es un agente de IA, cómo se compone, y cómo configurar uno real con GitHub Copilot Agent Mode usando los 5 artefactos del framework.
 
+**🎥 Presentación en línea:** https://msanchez-labs.github.io/poc-clase-agentes/
 **🔗 Repo del ejercicio:** https://github.com/msanchez-labs/poc-clase-agentes
 
 Este repositorio acompaña la sesión **"Agentes de IA — GitHub Copilot Framework"** y contiene tanto el material teórico (slides) como una **POC funcional**: la configuración completa de un agente que construye aplicaciones React frontend desde una descripción en lenguaje natural.
