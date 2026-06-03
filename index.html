@@ -3,7 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agentes de IA — GitHub Copilot Framework</title>
+<title>Agentes de IA · Guía visual de GitHub Copilot Framework — Miguel Sánchez</title>
+
+<!-- ── SEO básico ── -->
+<meta name="description" content="Guía visual hecha por Miguel Sánchez para repasar los conceptos clave de Agentes de IA y GitHub Copilot Agent Mode: arquitectura por capas, los 5 artefactos del framework (.github/), Custom Agents, Skills, Prompts, evolución de Copilot y un caso de uso end-to-end. Material de la clase del Glosario IA 2025–2026.">
+<meta name="keywords" content="agentes de IA, GitHub Copilot, Copilot Agent Mode, custom agents, agent skills, prompt files, instructions, .github, react agentic, Claude Code, MCP, IA aplicada, AI agents, Miguel Sánchez, msanchez.tech, glosario IA, guía visual">
+<meta name="author" content="Miguel Sánchez">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#06060a">
+<link rel="canonical" href="https://msanchez-labs.github.io/poc-clase-agentes/">
+
+<!-- ── Open Graph (Facebook, LinkedIn, WhatsApp, Discord) ── -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="msanchez.tech">
+<meta property="og:locale" content="es_LA">
+<meta property="og:title" content="Agentes de IA · Guía visual de GitHub Copilot Framework">
+<meta property="og:description" content="Guía hecha por Miguel Sánchez para repasar Agentes de IA y GitHub Copilot Agent Mode: arquitectura, los 5 artefactos del .github/, Custom Agents, Skills, Prompts y un caso de uso end-to-end.">
+<meta property="og:url" content="https://msanchez-labs.github.io/poc-clase-agentes/">
+<meta property="og:image" content="https://msanchez.tech/perfil.jpg">
+<meta property="og:image:alt" content="Miguel Sánchez — Arquitecto de Soluciones Cloud + IA">
+<meta property="article:author" content="https://msanchez.tech">
+<meta property="article:section" content="IA · Desarrollo Agéntico">
+
+<!-- ── Twitter / X Card ── -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agentes de IA · Guía visual de GitHub Copilot Framework">
+<meta name="twitter:description" content="Repaso de conceptos clave de Agentes de IA + GitHub Copilot Agent Mode. Hecho por Miguel Sánchez.">
+<meta name="twitter:image" content="https://msanchez.tech/perfil.jpg">
+<meta name="twitter:image:alt" content="Miguel Sánchez — Arquitecto de Soluciones Cloud + IA">
+
+<!-- ── Favicon (usa la misma foto como fallback) ── -->
+<link rel="icon" type="image/jpeg" href="https://msanchez.tech/perfil.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -36,14 +67,13 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-famil
 .slide.active .a6{animation:fadeUp .55s cubic-bezier(.16,1,.3,1) .40s both}
 .slide.active .a7{animation:fadeUp .55s cubic-bezier(.16,1,.3,1) .48s both}
 #progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--teal));transition:width .4s cubic-bezier(.16,1,.3,1);z-index:999}
-#slide-num{position:fixed;top:26px;left:32px;font-family:var(--mono);font-size:11px;color:var(--dim)}
-#hint{position:fixed;top:26px;right:32px;font-family:var(--mono);font-size:11px;color:var(--dim);display:flex;align-items:center;gap:6px}
-.kbd{border:1px solid var(--dim);border-radius:4px;padding:2px 6px;font-size:10px}
-#nav{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:100px;padding:9px 18px;backdrop-filter:blur(12px);z-index:999;font-family:var(--mono);font-size:11px;color:var(--muted)}
-#nav button{background:none;border:none;cursor:pointer;color:var(--muted);font-size:15px;padding:2px 8px;border-radius:6px;transition:all .2s}
-#nav button:hover{background:rgba(255,255,255,.08);color:var(--text)}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--dim);transition:all .3s;cursor:pointer}
-.dot.on{background:var(--purple);width:20px;border-radius:3px}
+#nav{position:fixed;top:20px;right:28px;display:flex;align-items:center;gap:3px;background:rgba(255,255,255,.045);border:1px solid var(--border);border-radius:100px;padding:5px 6px;backdrop-filter:blur(14px);z-index:999;font-family:var(--mono);box-shadow:0 6px 22px rgba(0,0,0,.35)}
+#nav button{width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;color:var(--muted);font-size:17px;line-height:1;border-radius:50%;transition:background .2s,color .2s,opacity .2s}
+#nav button:hover:not(:disabled){background:rgba(255,255,255,.09);color:var(--text)}
+#nav button:active:not(:disabled){transform:scale(.92)}
+#nav button:disabled{opacity:.22;cursor:default}
+#counter{font-size:11px;color:var(--muted);letter-spacing:.1em;min-width:50px;text-align:center;user-select:none}
+#counter b{color:var(--text);font-weight:600}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
 .eyebrow.purple{color:var(--purple)}
 .eyebrow.teal{color:var(--teal)}
@@ -171,11 +201,13 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 .hl2 .fname{color:var(--purple)}
 .hl3 .fname{color:var(--amber)}
 .hl4 .fname{color:var(--blue)}
+.hl5 .fname{color:var(--coral)}
 .fs-tree .badge{margin-left:auto;font-size:9px;padding:2px 8px;border-radius:100px;white-space:nowrap;flex-shrink:0;margin-left:10px}
 .fs-tree .badge.always{background:rgba(124,92,252,.15);color:var(--purple)}
 .fs-tree .badge.auto{background:rgba(0,201,167,.12);color:var(--teal)}
 .fs-tree .badge.ondemand{background:rgba(245,166,35,.12);color:var(--amber)}
 .fs-tree .badge.cmd{background:rgba(78,168,222,.12);color:var(--blue)}
+.fs-tree .badge.autoglob{background:rgba(255,107,107,.12);color:var(--coral)}
 .fs-tree .tree-row{transition:opacity .28s ease}
 .fs-tree.has-active .tree-row{opacity:.18}
 .fs-tree.has-active .tree-row.is-hl{opacity:1}
@@ -188,6 +220,29 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 .artifact-card.is-active[data-artifact-card="2"]{border-color:rgba(0,201,167,.6)!important;box-shadow:0 0 22px rgba(0,201,167,.26)}
 .artifact-card.is-active[data-artifact-card="3"]{border-color:rgba(245,166,35,.6)!important;box-shadow:0 0 22px rgba(245,166,35,.26)}
 .artifact-card.is-active[data-artifact-card="4"]{border-color:rgba(78,168,222,.6)!important;box-shadow:0 0 22px rgba(78,168,222,.26)}
+.artifact-card.is-active[data-artifact-card="5"]{border-color:rgba(255,107,107,.6)!important;box-shadow:0 0 22px rgba(255,107,107,.26)}
+.setup-card{cursor:pointer;transition:opacity .25s ease,transform .25s ease,border-color .25s ease,box-shadow .25s ease;user-select:none}
+.setup-card:hover{transform:translateY(-1px)}
+.setup-row.has-active .setup-card{opacity:.38}
+.setup-row.has-active .setup-card.is-active{opacity:1;transform:translateY(-1px)}
+.setup-card.is-active[data-setup-card="1"]{border-color:rgba(0,201,167,.65)!important;box-shadow:0 0 22px rgba(0,201,167,.28)}
+.setup-card.is-active[data-setup-card="2"]{border-color:rgba(245,166,35,.65)!important;box-shadow:0 0 22px rgba(245,166,35,.28)}
+.setup-card.is-active[data-setup-card="3"]{border-color:rgba(255,107,107,.65)!important;box-shadow:0 0 22px rgba(255,107,107,.26)}
+.setup-card.is-active[data-setup-card="4"]{border-color:rgba(124,92,252,.7)!important;box-shadow:0 0 22px rgba(124,92,252,.3)}
+.setup-card.is-active[data-setup-card="5"]{border-color:rgba(78,168,222,.65)!important;box-shadow:0 0 22px rgba(78,168,222,.28)}
+.fs-tree.is-compact{padding:14px 16px;font-size:11px}
+.fs-tree.is-compact .tree-row{height:22px;padding-left:6px;border-radius:4px;transition:opacity .28s ease,background .28s ease,box-shadow .28s ease,filter .28s ease}
+.fs-tree.is-compact .tree-row .fi{font-size:11px}
+.fs-tree.is-compact.has-active .tree-row{opacity:.12;filter:saturate(.25)}
+.fs-tree.is-compact.has-active .tree-row.is-root{opacity:.55;filter:saturate(.4)}
+.fs-tree.is-compact.has-active .tree-row.is-hl{opacity:1;filter:none}
+.fs-tree.is-compact.has-active .tree-row.is-hl[data-setup="1"]{background:rgba(0,201,167,.08);box-shadow:inset 2px 0 0 var(--teal)}
+.fs-tree.is-compact.has-active .tree-row.is-hl[data-setup="2"]{background:rgba(245,166,35,.08);box-shadow:inset 2px 0 0 var(--amber)}
+.fs-tree.is-compact.has-active .tree-row.is-hl[data-setup="3"]{background:rgba(255,107,107,.08);box-shadow:inset 2px 0 0 var(--coral)}
+.fs-tree.is-compact.has-active .tree-row.is-hl[data-setup="4"]{background:rgba(124,92,252,.10);box-shadow:inset 2px 0 0 var(--purple)}
+.fs-tree.is-compact.has-active .tree-row.is-hl[data-setup="5"]{background:rgba(78,168,222,.08);box-shadow:inset 2px 0 0 var(--blue)}
+.setup-row.has-active .setup-card{opacity:.22;filter:saturate(.35)}
+.setup-row.has-active .setup-card.is-active{opacity:1;filter:none;transform:translateY(-1px)}
 .quotes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:960px}
 .qcard{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:22px;position:relative;overflow:hidden;transition:transform .2s}
 .qcard:hover{transform:translateY(-2px)}
@@ -246,8 +301,6 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 <body>
 
 <div id="progress"></div>
-<div id="slide-num">01 / 09</div>
-<div id="hint"><span class="kbd">←</span><span class="kbd">→</span></div>
 
 <div class="deck">
 
@@ -359,6 +412,36 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
       <div class="c-icon">📋</div>
       <div class="c-name">Instrucciones</div>
       <div class="c-desc">Objetivos, límites y comportamiento esperado</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+  02 — CITAS OFICIALES · VALIDACIÓN DEL CONCEPTO
+══════════════════════════════════ -->
+<div class="slide" id="s8">
+  <div class="eyebrow a1" style="text-align:center">01b — fuentes oficiales · validación</div>
+  <h2 class="title a2" style="text-align:center;margin-bottom:32px">Lo dicen ellos mismos</h2>
+  <div class="quotes-grid a3">
+    <div class="qcard q-oa">
+      <div class="qo">OpenAI · Guía Práctica para Construir Agentes</div>
+      <div class="qt">"Los agentes son sistemas que cumplen tareas en tu nombre con un alto grado de independencia."</div>
+      <a href="https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/" target="_blank" class="ql">↗ openai.com — practical guide to building agents</a>
+    </div>
+    <div class="qcard q-an">
+      <div class="qo">Anthropic · Construyendo Agentes Efectivos</div>
+      <div class="qt">"Los agentes son sistemas donde los LLMs dirigen dinámicamente sus propios procesos y el uso de herramientas, manteniendo el control sobre cómo completan las tareas."</div>
+      <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" class="ql">↗ anthropic.com — building effective agents</a>
+    </div>
+    <div class="qcard q-go">
+      <div class="qo">Google · Documentación de la API de Gemini</div>
+      <div class="qt">"Los agentes son sistemas que aprovechan los modelos Gemini, las herramientas y las capacidades de razonamiento para ejecutar tareas complejas de múltiples pasos."</div>
+      <a href="https://ai.google.dev/gemini-api/docs/agents" target="_blank" class="ql">↗ ai.google.dev — gemini api docs agents</a>
+    </div>
+    <div class="qcard q-ms">
+      <div class="qo">GitHub · Agent Mode 101</div>
+      <div class="qt">"El modo agente de GitHub Copilot es un colaborador autónomo y agéntico, síncrono y en tiempo real, que ejecuta tareas de codificación de múltiples pasos a partir de prompts en lenguaje natural."</div>
+      <a href="https://github.blog/ai-and-ml/github-copilot/agent-mode-101-all-about-github-copilots-powerful-mode/" target="_blank" class="ql">↗ github.blog — agent mode 101</a>
     </div>
   </div>
 </div>
@@ -490,7 +573,7 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
     </div>
     <p style="margin-top:18px;color:var(--text);font-size:16px;line-height:1.55">
       <em style="font-style:normal;color:var(--amber);font-weight:600">Custom Agents</em> y <em style="font-style:normal;color:var(--teal);font-weight:600">MCP</em> son las piezas que <span style="color:var(--purple);font-weight:600">tú puedes diseñar</span>.<br>
-      Eso es lo que veremos en los próximos slides.
+      Los próximos slides muestran <strong style="color:#fff">cómo se diseñan</strong> — primero el framework, después el plan mental del dev.
     </p>
   </div>
 </div>
@@ -525,6 +608,10 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
           <div style="font-size:11px;font-weight:600;color:var(--blue);letter-spacing:.08em;margin-bottom:2px">PROMPTS</div>
           <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">Punto de entrada del usuario — invocados con /nombre. Archivos *.prompt.md</div>
         </div>
+        <div class="artifact-card" data-artifact-card="5" role="button" tabindex="0" aria-label="Artefacto: instructions con glob" style="background:rgba(255,107,107,.05);border:1px solid rgba(255,107,107,.18);border-radius:10px;padding:10px 16px">
+          <div style="font-size:11px;font-weight:600;color:var(--coral);letter-spacing:.08em;margin-bottom:2px">INSTRUCTIONS · GLOB</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">Reglas con applyTo — auto-activas por patrón de archivo. *.instructions.md</div>
+        </div>
       </div>
       <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:8px;max-width:380px;text-align:right">↳ click en cada artefacto</div>
     </div>
@@ -540,6 +627,21 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
             <span class="tree-prefix">├──&nbsp;</span>
             <span class="fi">📄</span><span class="fname">copilot-instructions.md</span>
             <span class="badge always">siempre activo</span>
+          </div>
+          <!-- instructions/ -->
+          <div class="tree-row dir" data-artifact="5">
+            <span class="tree-prefix">├──&nbsp;</span>
+            <span class="fi">📁</span><span class="fname">instructions/</span>
+          </div>
+          <div class="tree-row hl5" data-artifact="5">
+            <span class="tree-prefix">│&nbsp;&nbsp;├──&nbsp;</span>
+            <span class="fi">📄</span><span class="fname">react-components.instructions.md</span>
+            <span class="badge autoglob">auto-glob</span>
+          </div>
+          <div class="tree-row hl5" data-artifact="5">
+            <span class="tree-prefix">│&nbsp;&nbsp;└──&nbsp;</span>
+            <span class="fi">📄</span><span class="fname">react-tests.instructions.md</span>
+            <span class="badge autoglob">auto-glob</span>
           </div>
           <!-- skills/ -->
           <div class="tree-row dir" data-artifact="2">
@@ -611,116 +713,333 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 </div>
 
 <!-- ══════════════════════════════════
-  05 — ANATOMY OF SKILL.MD (react-frontend)
+  07 — ANTES DE LA DEMO: EL PLAN MENTAL DEL DEV
 ══════════════════════════════════ -->
-<div class="slide" id="s5">
-  <div class="split">
+<div class="slide" id="s-setup" style="align-items:flex-start;justify-content:flex-start;padding:36px 60px">
+  <!-- HEADER -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;width:100%;margin-bottom:16px">
     <div>
-      <div class="eyebrow teal a1">05 — skill anatomy</div>
-      <h2 class="title a2">Qué contiene<br><em class="teal">react-frontend</em></h2>
-      <p class="def teal a3" style="margin-bottom:16px">
-        El <strong style="color:#fff">frontmatter</strong> define cuándo activarse.<br>
-        El <strong style="color:#fff">body</strong> son las reglas que el agente<br>
-        debe seguir al construir el proyecto.
-      </p>
-      <div class="a4" style="display:flex;flex-direction:column;gap:7px;max-width:360px">
-        <div style="background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:9px 14px">
-          <div style="font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--purple);margin-bottom:2px">DESCRIPCIÓN — el trigger</div>
-          <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">Frases que activan la skill: "crea componente", "estructura React", "nuevo hook"</div>
-        </div>
-        <div style="background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:9px 14px">
-          <div style="font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--teal);margin-bottom:2px">ESTRUCTURA</div>
-          <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">Feature-based folders. Un hook por feature. Separación lógica / UI obligatoria</div>
-        </div>
-        <div style="background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:9px 14px">
-          <div style="font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--amber);margin-bottom:2px">REGLAS DURAS</div>
-          <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">Sin any. Sin lógica en componentes UI. Interfaces explícitas. PascalCase / use* / kebab-case</div>
-        </div>
-      </div>
-      <div class="skill-badges a5">
-        <span class="sbadge teal">react-frontend</span>
-        <span class="sbadge teal">react-state</span>
-        <span class="sbadge teal">react-ui</span>
-      </div>
-      <div style="font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:8px">3 skills · se activan juntas según contexto</div>
+      <div class="eyebrow purple a1">05 — antes de la demo · el plan mental</div>
+      <h2 class="title a2" style="font-size:clamp(26px,3.2vw,42px);line-height:1.05">Antes de configurar nada,<br><em class="purple">Miguel se hace 5 preguntas</em></h2>
     </div>
-    <div class="a5">
-      <div class="code-block" data-skill-code>
-        <div class="path">.github/skills/react-frontend/SKILL.md</div>
-        <div class="ln" data-step="1"><span class="n">1</span><span style="color:var(--dim)">---</span></div>
-        <div class="ln" data-step="1"><span class="n">2</span><span><span class="k">name:</span> <span class="v">react-frontend</span></span></div>
-        <div class="ln" data-step="2"><span class="n">3</span><span><span class="k">description:</span> <span class="s">&gt;-</span></span></div>
-        <div class="ln" data-step="2"><span class="n">4</span><span style="padding-left:16px"><span class="s">Activa al crear componentes React, hooks,</span></span></div>
-        <div class="ln" data-step="2"><span class="n">5</span><span style="padding-left:16px"><span class="s">features, estructura de carpetas o apps</span></span></div>
-        <div class="ln" data-step="2"><span class="n">6</span><span style="padding-left:16px"><span class="s">con Vite + TypeScript.</span></span></div>
-        <div class="ln" data-step="1"><span class="n">7</span><span style="color:var(--dim)">---</span></div>
-        <div class="ln" data-step="3"><span class="n">8</span><span></span></div>
-        <div class="ln" data-step="3"><span class="n">9</span><span><span class="k">## Estructura</span></span></div>
-        <div class="ln" data-step="3"><span class="n">10</span><span><span class="v">- Feature-based folders</span> <span class="c"># NO type-based</span></span></div>
-        <div class="ln" data-step="3"><span class="n">11</span><span><span class="v">- src/features/[nombre]/</span></span></div>
-        <div class="ln" data-step="3"><span class="n">12</span><span><span class="v">  ├── use[Nombre].ts</span> <span class="c"># lógica aquí</span></span></div>
-        <div class="ln" data-step="3"><span class="n">13</span><span><span class="v">  ├── [Nombre]List.tsx</span> <span class="c"># solo UI</span></span></div>
-        <div class="ln" data-step="3"><span class="n">14</span><span><span class="v">  └── [nombre].types.ts</span></span></div>
-        <div class="ln" data-step="3"><span class="n">15</span><span><span class="k">## Reglas</span></span></div>
-        <div class="ln" data-step="3"><span class="n">16</span><span><span class="req">- Prohibido: any, var, lógica en JSX</span></span></div>
-        <div class="ln" data-step="3"><span class="n">17</span><span><span class="v">- localStorage:</span> solo en services/</span></div>
+    <div class="a2" style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:8px 14px;display:flex;align-items:center;gap:10px">
+      <img src="https://msanchez.tech/perfil.jpg" alt="Miguel Sánchez" style="width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:center 25%;border:1px solid rgba(124,92,252,.4)">
+      <div>
+        <div style="font-size:11px;color:#fff;font-weight:700">Miguel</div>
+        <div style="font-family:var(--mono);font-size:9.5px;color:var(--purple)">Dev</div>
       </div>
-      <!-- FRONTMATTER NOTE -->
-      <div style="margin-top:14px;background:rgba(124,92,252,.06);border:1px solid rgba(124,92,252,.2);border-radius:12px;padding:14px 18px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple)">⚡ cómo funciona la carga lazy</div>
-          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)">↳ click en cada paso</div>
+    </div>
+  </div>
+
+  <!-- TWO COLUMN BODY -->
+  <div style="display:grid;grid-template-columns:1fr 380px;gap:24px;width:100%;align-items:start">
+
+    <!-- LEFT: 5 preguntas del plan mental -->
+    <div class="a3 setup-row" data-setup-row style="display:flex;flex-direction:column;gap:9px">
+
+      <!-- Pregunta 1: prompts -->
+      <div class="setup-card" data-setup-card="1" role="button" tabindex="0" aria-label="Pregunta 1: cómo invocar al agente" style="background:var(--s1);border:1px solid rgba(0,201,167,.28);border-radius:12px;padding:11px 14px;display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center">
+        <div style="width:26px;height:26px;border-radius:50%;background:rgba(0,201,167,.15);border:1px solid rgba(0,201,167,.4);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--teal);font-weight:700">1</div>
+        <div>
+          <div style="font-size:12px;color:#fff;font-weight:600;line-height:1.3">¿Cómo voy a invocar al agente?</div>
+          <div style="font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.45;margin-top:2px">Dos entradas: <code style="color:var(--teal)">/new-react-app</code> crea desde cero · <code style="color:var(--teal)">/add-feature</code> extiende</div>
         </div>
-        <!-- step row -->
-        <div class="step-row" data-step-row style="display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px">
-          <!-- step 1 -->
-          <div class="step-card" data-step-card="1" role="button" tabindex="0" aria-label="Paso 1: lee solo el frontmatter" style="background:var(--s2);border:1px solid rgba(124,92,252,.25);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
-            <div style="font-size:9px;color:var(--purple);margin-bottom:3px;letter-spacing:.1em">PASO 1</div>
-            <div style="color:#fff;font-weight:600;margin-bottom:2px">Lee solo el frontmatter</div>
-            <div style="color:var(--muted);font-size:10px">name + description de todas las skills — muy liviano</div>
-          </div>
-          <div style="color:var(--dim);font-size:14px;flex-shrink:0">→</div>
-          <!-- step 2 -->
-          <div class="step-card" data-step-card="2" role="button" tabindex="0" aria-label="Paso 2: infiere relevancia" style="background:var(--s2);border:1px solid rgba(0,201,167,.2);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
-            <div style="font-size:9px;color:var(--teal);margin-bottom:3px;letter-spacing:.1em">PASO 2</div>
-            <div style="color:#fff;font-weight:600;margin-bottom:2px">Infiere relevancia</div>
-            <div style="color:var(--muted);font-size:10px">¿el contexto coincide con la description? → sí / no</div>
-          </div>
-          <div style="color:var(--dim);font-size:14px;flex-shrink:0">→</div>
-          <!-- step 3 -->
-          <div class="step-card" data-step-card="3" role="button" tabindex="0" aria-label="Paso 3: carga el body completo" style="background:var(--s2);border:1px solid rgba(245,166,35,.2);border-radius:8px;padding:8px 12px;text-align:center;flex:1">
-            <div style="font-size:9px;color:var(--amber);margin-bottom:3px;letter-spacing:.1em">PASO 3</div>
-            <div style="color:#fff;font-weight:600;margin-bottom:2px">Carga el body completo</div>
-            <div style="color:var(--muted);font-size:10px">solo si la skill fue marcada como relevante</div>
-          </div>
-        </div>
-        <div style="margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--dim);border-top:1px solid rgba(255,255,255,.04);padding-top:8px">
-          El body puede ser largo y detallado — no penaliza el contexto si la skill no se activa.
-          <span style="color:var(--purple)">La description es el único texto que siempre se lee.</span>
-        </div>
+        <div style="background:rgba(0,201,167,.1);border:1px solid rgba(0,201,167,.32);border-radius:100px;padding:3px 10px;font-family:var(--mono);font-size:10px;color:var(--teal);font-weight:600;white-space:nowrap">→ 2 prompts</div>
       </div>
-      <div style="font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:8px;text-align:right">
-        estándar abierto · compatible con Copilot, Claude Code, Cursor
+
+      <!-- Pregunta 2: copilot-instructions globales -->
+      <div class="setup-card" data-setup-card="2" role="button" tabindex="0" aria-label="Pregunta 2: reglas globales" style="background:var(--s1);border:1px solid rgba(245,166,35,.28);border-radius:12px;padding:11px 14px;display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center">
+        <div style="width:26px;height:26px;border-radius:50%;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--amber);font-weight:700">2</div>
+        <div>
+          <div style="font-size:12px;color:#fff;font-weight:600;line-height:1.3">¿Qué reglas son <em style="color:var(--amber);font-style:normal">siempre</em> verdad?</div>
+          <div style="font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.45;margin-top:2px">Stack base, idioma (español), prohibiciones globales (no <code style="color:var(--coral)">any</code>, no lógica en JSX)</div>
+        </div>
+        <div style="background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.32);border-radius:100px;padding:3px 10px;font-family:var(--mono);font-size:10px;color:var(--amber);font-weight:600;white-space:nowrap">→ 1 instructions global</div>
       </div>
+
+      <!-- Pregunta 3: instructions con glob -->
+      <div class="setup-card" data-setup-card="3" role="button" tabindex="0" aria-label="Pregunta 3: reglas por glob" style="background:var(--s1);border:1px solid rgba(255,107,107,.28);border-radius:12px;padding:11px 14px;display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center">
+        <div style="width:26px;height:26px;border-radius:50%;background:rgba(255,107,107,.15);border:1px solid rgba(255,107,107,.4);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--coral);font-weight:700">3</div>
+        <div>
+          <div style="font-size:12px;color:#fff;font-weight:600;line-height:1.3">¿Qué reglas aplican <em style="color:var(--coral);font-style:normal">solo a ciertos archivos</em>?</div>
+          <div style="font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.45;margin-top:2px">Componentes <code style="color:var(--coral)">.tsx</code> (props, estados) · tests <code style="color:var(--coral)">*.test.tsx</code> (Vitest + RTL)</div>
+        </div>
+        <div style="background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.32);border-radius:100px;padding:3px 10px;font-family:var(--mono);font-size:10px;color:var(--coral);font-weight:600;white-space:nowrap">→ 2 instructions con glob</div>
+      </div>
+
+      <!-- Pregunta 4: cuántos agentes -->
+      <div class="setup-card" data-setup-card="4" role="button" tabindex="0" aria-label="Pregunta 4: cuántos agentes" style="background:var(--s1);border:1px solid rgba(124,92,252,.32);border-radius:12px;padding:11px 14px;display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center">
+        <div style="width:26px;height:26px;border-radius:50%;background:rgba(124,92,252,.18);border:1px solid rgba(124,92,252,.45);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--purple);font-weight:700">4</div>
+        <div>
+          <div style="font-size:12px;color:#fff;font-weight:600;line-height:1.3">¿Cuántos agentes necesito y qué hace cada uno?</div>
+          <div style="font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.45;margin-top:2px"><strong style="color:var(--purple)">Uno solo</strong>: <code style="color:var(--purple)">react-developer</code> — orquesta protocolo de 2 fases (planificar → construir)</div>
+        </div>
+        <div style="background:rgba(124,92,252,.12);border:1px solid rgba(124,92,252,.38);border-radius:100px;padding:3px 10px;font-family:var(--mono);font-size:10px;color:var(--purple);font-weight:600;white-space:nowrap">→ 1 agente</div>
+      </div>
+
+      <!-- Pregunta 5: skills -->
+      <div class="setup-card" data-setup-card="5" role="button" tabindex="0" aria-label="Pregunta 5: skills especializadas" style="background:var(--s1);border:1px solid rgba(78,168,222,.28);border-radius:12px;padding:11px 14px;display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center">
+        <div style="width:26px;height:26px;border-radius:50%;background:rgba(78,168,222,.15);border:1px solid rgba(78,168,222,.4);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--blue);font-weight:700">5</div>
+        <div>
+          <div style="font-size:12px;color:#fff;font-weight:600;line-height:1.3">¿Qué <em style="color:var(--blue);font-style:normal">conocimiento técnico especializado</em> debe cargar?</div>
+          <div style="font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.45;margin-top:2px">Patrones frontend · gestión de estado · estilos UI — cargado lazy, solo cuando aplica</div>
+        </div>
+        <div style="background:rgba(78,168,222,.1);border:1px solid rgba(78,168,222,.32);border-radius:100px;padding:3px 10px;font-family:var(--mono);font-size:10px;color:var(--blue);font-weight:600;white-space:nowrap">→ 3 skills</div>
+      </div>
+
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:right;margin-top:2px">↳ click en cada pregunta</div>
+    </div>
+
+    <!-- RIGHT: árbol real .github/ (interactivo) -->
+    <div class="a4 fs-tree is-compact" data-setup-tree>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:8px;font-family:var(--mono)">
+        <div style="font-size:9px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:700">
+          <span style="color:var(--teal)">↓</span> lo que vamos a usar
+        </div>
+        <div style="font-size:9px;color:var(--dim)">9 archivos · 5 categorías</div>
+      </div>
+
+      <!-- root -->
+      <div class="tree-row dir is-root">
+        <span class="fi">📁</span><span class="fname">.github/</span>
+      </div>
+
+      <!-- copilot-instructions.md → Q2 -->
+      <div class="tree-row" data-setup="2">
+        <span class="tree-prefix">├──&nbsp;</span>
+        <span class="fi">📄</span><span class="fname">copilot-instructions.md</span>
+        <span class="badge always">global</span>
+      </div>
+
+      <!-- agents/ → Q4 -->
+      <div class="tree-row dir" data-setup="4">
+        <span class="tree-prefix">├──&nbsp;</span>
+        <span class="fi">📁</span><span class="fname">agents/</span>
+      </div>
+      <div class="tree-row" data-setup="4">
+        <span class="tree-prefix">│&nbsp;&nbsp;└──&nbsp;</span>
+        <span class="fi">🤖</span><span class="fname">react-developer.agent.md</span>
+        <span class="badge ondemand">on-demand</span>
+      </div>
+
+      <!-- prompts/ → Q1 -->
+      <div class="tree-row dir" data-setup="1">
+        <span class="tree-prefix">├──&nbsp;</span>
+        <span class="fi">📁</span><span class="fname">prompts/</span>
+      </div>
+      <div class="tree-row" data-setup="1">
+        <span class="tree-prefix">│&nbsp;&nbsp;├──&nbsp;</span>
+        <span class="fi">💬</span><span class="fname">new-react-app.prompt.md</span>
+        <span class="badge cmd">/new-react-app</span>
+      </div>
+      <div class="tree-row" data-setup="1">
+        <span class="tree-prefix">│&nbsp;&nbsp;└──&nbsp;</span>
+        <span class="fi">💬</span><span class="fname">add-feature.prompt.md</span>
+        <span class="badge cmd">/add-feature</span>
+      </div>
+
+      <!-- instructions/ → Q3 -->
+      <div class="tree-row dir" data-setup="3">
+        <span class="tree-prefix">├──&nbsp;</span>
+        <span class="fi">📁</span><span class="fname">instructions/</span>
+      </div>
+      <div class="tree-row" data-setup="3">
+        <span class="tree-prefix">│&nbsp;&nbsp;├──&nbsp;</span>
+        <span class="fi">📄</span><span class="fname">react-components.instructions.md</span>
+      </div>
+      <div class="tree-row" data-setup="3">
+        <span class="tree-prefix">│&nbsp;&nbsp;└──&nbsp;</span>
+        <span class="fi">📄</span><span class="fname">react-tests.instructions.md</span>
+      </div>
+
+      <!-- skills/ → Q5 -->
+      <div class="tree-row dir" data-setup="5">
+        <span class="tree-prefix">└──&nbsp;</span>
+        <span class="fi">📁</span><span class="fname">skills/</span>
+      </div>
+      <div class="tree-row" data-setup="5">
+        <span class="tree-prefix">&nbsp;&nbsp;&nbsp;├──&nbsp;</span>
+        <span class="fi">📦</span><span class="fname">react-frontend/SKILL.md</span>
+        <span class="badge auto">auto</span>
+      </div>
+      <div class="tree-row" data-setup="5">
+        <span class="tree-prefix">&nbsp;&nbsp;&nbsp;├──&nbsp;</span>
+        <span class="fi">📦</span><span class="fname">react-state/SKILL.md</span>
+        <span class="badge auto">auto</span>
+      </div>
+      <div class="tree-row" data-setup="5">
+        <span class="tree-prefix">&nbsp;&nbsp;&nbsp;└──&nbsp;</span>
+        <span class="fi">📦</span><span class="fname">react-ui/SKILL.md</span>
+        <span class="badge auto">auto</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BADGE INVERSIÓN -->
+  <div class="a5" style="margin-top:16px;width:100%;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:12px 20px;background:linear-gradient(90deg,rgba(124,92,252,.10),rgba(0,201,167,.10));border:1px solid rgba(124,92,252,.32);border-radius:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:30px;height:30px;border-radius:8px;background:rgba(74,222,128,.18);border:1px solid rgba(74,222,128,.4);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">✅</div>
+      <div style="font-size:12.5px;color:var(--text);line-height:1.5">
+        <strong style="color:#fff">5 preguntas → 9 archivos → 1 inversión única.</strong>
+        <span style="color:var(--muted)">Esa misma estructura sirve para todas las apps que Miguel construya con este agente.</span>
+      </div>
+    </div>
+    <div style="font-family:var(--mono);font-size:10px;color:var(--dim);text-align:right;letter-spacing:.1em;text-transform:uppercase">
+      antes de la demo →<br>veamos cómo se ve uno por dentro
     </div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════
-  06 — CASO DE USO: EL RETO (ANDREA · DISTRIBUIDORA ABC)
+  08 — FRONTMATTER · CONTRATO DE CARGA CROSS-ARTEFACTO
+══════════════════════════════════ -->
+<div class="slide" id="s5" style="align-items:flex-start;justify-content:flex-start;padding:26px 52px">
+  <!-- HEADER -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;width:100%;margin-bottom:10px">
+    <div>
+      <div class="eyebrow teal a1" style="margin-bottom:10px">06 — frontmatter · cómo Copilot decide qué leer</div>
+      <h2 class="title a2" style="font-size:clamp(24px,2.9vw,38px);line-height:1.04">Frontmatter siempre,<br><em class="teal">body solo si aplica</em></h2>
+    </div>
+    <div class="a2" style="font-family:var(--mono);font-size:10px;color:var(--dim);text-align:right;letter-spacing:.1em;text-transform:uppercase;line-height:1.55">
+      estándar abierto<br>Copilot · Claude · Cursor
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <p class="a3" style="font-size:12.5px;line-height:1.5;color:var(--muted);max-width:1080px;margin:0 0 11px">
+    Cada artefacto empieza con un bloque <strong style="color:#fff">YAML</strong> que Copilot <strong style="color:var(--teal)">siempre lee</strong>.
+    El body solo se carga si el frontmatter lo justifica — así tenés decenas de artefactos sin saturar el contexto.
+  </p>
+
+  <!-- GRID 2x2 · UN CARD POR ARTEFACTO -->
+  <div class="a4" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;max-width:1180px;margin-bottom:10px">
+
+    <!-- INSTRUCTIONS -->
+    <div style="background:var(--s1);border:1px solid rgba(245,166,35,.32);border-radius:12px;padding:9px 13px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--amber);letter-spacing:.14em;text-transform:uppercase;font-weight:700">📄 instructions · *.instructions.md</div>
+        <div data-load-step="2" style="font-family:var(--mono);font-size:9px;color:var(--dim);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.25);border-radius:100px;padding:2px 8px;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease">trigger: glob match</div>
+      </div>
+      <pre data-load-step="1" style="background:#0a0a14;border:1px solid var(--border);border-radius:8px;padding:8px 11px;margin:0;font-family:var(--mono);font-size:10.5px;line-height:1.45;color:var(--text);overflow:auto;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease"><span style="color:var(--dim)">---</span>
+<span style="color:var(--amber)">applyTo:</span> <span style="color:var(--teal)">'src/**/*.tsx'</span>
+<span style="color:var(--amber)">description:</span> <span style="color:var(--teal)">'Reglas de componentes React'</span>
+<span style="color:var(--amber)">excludeAgent:</span> <span style="color:var(--teal)">code-review</span>  <span style="color:var(--dim)"># opcional</span>
+<span style="color:var(--dim)">---</span></pre>
+      <div data-load-step="3" style="font-family:var(--mono);font-size:10px;color:var(--muted);line-height:1.45;margin-top:6px;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease">
+        Se carga <strong style="color:#fff">automáticamente</strong> cuando el archivo que editás matchea el <code style="color:var(--amber)">applyTo</code> — sin invocación manual.
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div style="background:var(--s1);border:1px solid rgba(0,201,167,.32);border-radius:12px;padding:9px 13px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--teal);letter-spacing:.14em;text-transform:uppercase;font-weight:700">📦 skills · SKILL.md</div>
+        <div data-load-step="2" style="font-family:var(--mono);font-size:9px;color:var(--dim);background:rgba(0,201,167,.1);border:1px solid rgba(0,201,167,.25);border-radius:100px;padding:2px 8px;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease">trigger: match semántico</div>
+      </div>
+      <pre data-load-step="1" style="background:#0a0a14;border:1px solid var(--border);border-radius:8px;padding:8px 11px;margin:0;font-family:var(--mono);font-size:10.5px;line-height:1.45;color:var(--text);overflow:auto;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease"><span style="color:var(--dim)">---</span>
+<span style="color:var(--amber)">name:</span> <span style="color:var(--teal)">react-frontend</span>
+<span style="color:var(--amber)">description:</span> <span style="color:var(--teal)">&gt;-</span>
+  <span style="color:var(--teal)">Activa al crear componentes React,</span>
+  <span style="color:var(--teal)">hooks, features con Vite + TypeScript.</span>
+<span style="color:var(--dim)">---</span></pre>
+      <div data-load-step="3" style="font-family:var(--mono);font-size:10px;color:var(--muted);line-height:1.45;margin-top:6px;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease">
+        Copilot evalúa la <code style="color:var(--teal)">description</code> contra tu prompt y carga el body solo si hay <strong style="color:#fff">match semántico</strong>.
+      </div>
+    </div>
+
+    <!-- PROMPTS -->
+    <div style="background:var(--s1);border:1px solid rgba(78,168,222,.32);border-radius:12px;padding:9px 13px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--blue);letter-spacing:.14em;text-transform:uppercase;font-weight:700">💬 prompts · *.prompt.md</div>
+        <div data-load-step="2" style="font-family:var(--mono);font-size:9px;color:var(--dim);background:rgba(78,168,222,.1);border:1px solid rgba(78,168,222,.25);border-radius:100px;padding:2px 8px;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease">trigger: slash command</div>
+      </div>
+      <pre data-load-step="1" style="background:#0a0a14;border:1px solid var(--border);border-radius:8px;padding:8px 11px;margin:0;font-family:var(--mono);font-size:10.5px;line-height:1.45;color:var(--text);overflow:auto;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease"><span style="color:var(--dim)">---</span>
+<span style="color:var(--amber)">name:</span> <span style="color:var(--teal)">new-react-app</span>
+<span style="color:var(--amber)">description:</span> <span style="color:var(--teal)">'Crear app React desde cero'</span>
+<span style="color:var(--amber)">agent:</span> <span style="color:var(--teal)">react-developer</span>
+<span style="color:var(--amber)">tools:</span> <span style="color:var(--teal)">[filesystem, terminal]</span>
+<span style="color:var(--dim)">---</span></pre>
+      <div data-load-step="3" style="font-family:var(--mono);font-size:10px;color:var(--muted);line-height:1.45;margin-top:6px;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease">
+        Se carga cuando el dev escribe <code style="color:var(--blue)">/new-react-app</code> — Copilot delega al agente declarado en <code style="color:var(--blue)">agent:</code>.
+      </div>
+    </div>
+
+    <!-- AGENTS -->
+    <div style="background:var(--s1);border:1px solid rgba(124,92,252,.34);border-radius:12px;padding:9px 13px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--purple);letter-spacing:.14em;text-transform:uppercase;font-weight:700">🤖 agents · *.agent.md</div>
+        <div data-load-step="2" style="font-family:var(--mono);font-size:9px;color:var(--dim);background:rgba(124,92,252,.12);border:1px solid rgba(124,92,252,.3);border-radius:100px;padding:2px 8px;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease">trigger: invocación explícita</div>
+      </div>
+      <pre data-load-step="1" style="background:#0a0a14;border:1px solid var(--border);border-radius:8px;padding:8px 11px;margin:0;font-family:var(--mono);font-size:10.5px;line-height:1.45;color:var(--text);overflow:auto;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease"><span style="color:var(--dim)">---</span>
+<span style="color:var(--amber)">name:</span> <span style="color:var(--teal)">react-developer</span>
+<span style="color:var(--amber)">description:</span> <span style="color:var(--teal)">&gt;-</span>
+  <span style="color:var(--teal)">Orquesta el flujo end-to-end:</span>
+  <span style="color:var(--teal)">plan → confirma → construye.</span>
+<span style="color:var(--amber)">tools:</span> <span style="color:var(--teal)">[filesystem, terminal, compiler]</span>
+<span style="color:var(--dim)">---</span></pre>
+      <div data-load-step="3" style="font-family:var(--mono);font-size:10px;color:var(--muted);line-height:1.45;margin-top:6px;transition:opacity .28s ease,box-shadow .28s ease,filter .28s ease">
+        Se carga cuando se invoca <strong style="color:#fff">explícitamente</strong> (desde un prompt o el chat). Activa sus <code style="color:var(--purple)">tools</code> y el protocolo del body.
+      </div>
+    </div>
+  </div>
+
+  <!-- LOAD LIFECYCLE · 3 STEPS -->
+  <div class="a5" style="width:100%;max-width:1180px;background:rgba(124,92,252,.06);border:1px solid rgba(124,92,252,.2);border-radius:12px;padding:9px 14px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+      <div style="font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);font-weight:700">⚡ ciclo de carga · idéntico para los 4 artefactos</div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)">↳ click en cada paso</div>
+    </div>
+    <div class="step-row" data-step-row style="display:flex;align-items:stretch;gap:6px;font-family:var(--mono);font-size:11px">
+      <div class="step-card" data-step-card="1" role="button" tabindex="0" aria-label="Paso 1: lee solo el frontmatter" style="background:var(--s2);border:1px solid rgba(124,92,252,.25);border-radius:8px;padding:7px 11px;text-align:center;flex:1">
+        <div style="font-size:9px;color:var(--purple);margin-bottom:2px;letter-spacing:.1em">PASO 1</div>
+        <div style="color:#fff;font-weight:600;margin-bottom:1px">Lee TODO el frontmatter</div>
+        <div style="color:var(--muted);font-size:9.5px">de los artefactos en <code style="color:var(--purple)">.github/</code> — barato</div>
+      </div>
+      <div style="color:var(--dim);font-size:13px;flex-shrink:0;display:flex;align-items:center">→</div>
+      <div class="step-card" data-step-card="2" role="button" tabindex="0" aria-label="Paso 2: evalúa trigger" style="background:var(--s2);border:1px solid rgba(0,201,167,.2);border-radius:8px;padding:7px 11px;text-align:center;flex:1">
+        <div style="font-size:9px;color:var(--teal);margin-bottom:2px;letter-spacing:.1em">PASO 2</div>
+        <div style="color:#fff;font-weight:600;margin-bottom:1px">Evalúa el trigger</div>
+        <div style="color:var(--muted);font-size:9.5px">glob · semántico · slash · invocación</div>
+      </div>
+      <div style="color:var(--dim);font-size:13px;flex-shrink:0;display:flex;align-items:center">→</div>
+      <div class="step-card" data-step-card="3" role="button" tabindex="0" aria-label="Paso 3: carga el body solo si aplica" style="background:var(--s2);border:1px solid rgba(245,166,35,.2);border-radius:8px;padding:7px 11px;text-align:center;flex:1">
+        <div style="font-size:9px;color:var(--amber);margin-bottom:2px;letter-spacing:.1em">PASO 3</div>
+        <div style="color:#fff;font-weight:600;margin-bottom:1px">Carga el body</div>
+        <div style="color:var(--muted);font-size:9.5px">solo de los artefactos relevantes</div>
+      </div>
+    </div>
+    <div style="margin-top:7px;font-family:var(--mono);font-size:9.5px;color:var(--dim);border-top:1px solid rgba(255,255,255,.04);padding-top:6px">
+      El frontmatter es el <strong style="color:var(--purple)">contrato de carga</strong> — define <em>cuándo</em> aplica. El body es la implementación — <em>qué</em> hace.
+      <span style="color:var(--teal)">Fuente: docs.github.com · code.visualstudio.com</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+  09 — CASO DE USO: EL RETO (LUISANA · DISTRIBUIDORA ABC)
 ══════════════════════════════════ -->
 <div class="slide" id="s-reto" style="align-items:flex-start;justify-content:flex-start;padding:38px 64px">
   <!-- HEADER -->
   <div style="display:flex;align-items:flex-end;justify-content:space-between;width:100%;margin-bottom:26px">
     <div>
-      <div class="eyebrow amber a1">06 — caso de uso · el reto</div>
+      <div class="eyebrow amber a1">07 — caso de uso · el reto</div>
       <h2 class="title a2" style="font-size:clamp(30px,3.4vw,46px)">Distribuidora ABC<br><em class="amber">tiene un problema</em></h2>
     </div>
-    <div class="a2" style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:10px 16px;display:flex;align-items:center;gap:12px">
-      <div style="width:38px;height:38px;border-radius:50%;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);display:flex;align-items:center;justify-content:center;font-size:18px">👩</div>
-      <div>
-        <div style="font-size:12px;color:#fff;font-weight:700">Luisana</div>
-        <div style="font-family:var(--mono);font-size:10px;color:var(--muted)">PM · Distribuidora ABC</div>
+    <div class="a2" style="display:flex;align-items:center;gap:8px">
+      <div style="background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:8px 14px;display:flex;align-items:center;gap:10px">
+        <div style="width:34px;height:34px;border-radius:50%;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);display:flex;align-items:center;justify-content:center;font-size:16px">👩</div>
+        <div>
+          <div style="font-size:11.5px;color:#fff;font-weight:700">Luisana</div>
+          <div style="font-family:var(--mono);font-size:9.5px;color:var(--muted)">PM · Distribuidora ABC</div>
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--dim)">→</div>
+      <div style="background:var(--s1);border:1px solid rgba(124,92,252,.32);border-radius:12px;padding:8px 14px;display:flex;align-items:center;gap:10px">
+        <img src="https://msanchez.tech/perfil.jpg" alt="Miguel" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:center 25%;border:1px solid rgba(124,92,252,.4)">
+        <div>
+          <div style="font-size:11.5px;color:#fff;font-weight:700">Miguel</div>
+          <div style="font-family:var(--mono);font-size:9.5px;color:var(--purple)">Dev</div>
+        </div>
       </div>
     </div>
   </div>
@@ -785,9 +1104,10 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
           <div style="font-family:var(--mono);font-size:11px;color:var(--teal);font-weight:700">⏱ minutos</div>
         </div>
         <div style="font-family:var(--mono);font-size:11px;color:var(--text);line-height:1.95">
-          Luisana describe el reto<br>
+          Luisana describe el reto a Miguel<br>
+          → Miguel invoca al agente<br>
           → Agente razona + propone plan<br>
-          → Luisana confirma (o ajusta)<br>
+          → Miguel ajusta / confirma<br>
           → Agente construye + valida<br>
           → App corre en localhost
         </div>
@@ -811,14 +1131,14 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 </div>
 
 <!-- ══════════════════════════════════
-  07 — CASO DE USO: EL PLAN (REDISEÑO · CHAT ENTRE LUISANA Y EL AGENTE)
+  09 — CASO DE USO: EL PLAN (DOS HANDOFFS · LUISANA→MIGUEL + MIGUEL→AGENTE)
 ══════════════════════════════════ -->
 <div class="slide" id="s6" style="align-items:flex-start;justify-content:flex-start;padding:32px 56px">
   <!-- HEADER -->
   <div style="display:flex;align-items:flex-end;justify-content:space-between;width:100%;margin-bottom:20px">
     <div>
-      <div class="eyebrow amber a1">06 — caso de uso · el plan</div>
-      <h2 class="title a2" style="font-size:clamp(26px,2.9vw,40px);line-height:1.05">Antes de tocar archivos,<br><em class="amber">el agente conversa con Luisana</em></h2>
+      <div class="eyebrow amber a1">08 — caso de uso · el plan</div>
+      <h2 class="title a2" style="font-size:clamp(26px,2.9vw,40px);line-height:1.05">El dev es el traductor<br><em class="purple">entre negocio y agente</em></h2>
     </div>
     <div class="a2" style="display:flex;align-items:center;gap:10px;padding:9px 16px;background:var(--s1);border:1px solid rgba(245,166,35,.32);border-radius:10px">
       <div style="width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);animation:pulse 2s infinite"></div>
@@ -832,69 +1152,103 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
   <!-- BODY: chat (izquierda) + plan generado (derecha) -->
   <div style="display:grid;grid-template-columns:380px 1fr;gap:24px;width:100%;align-items:stretch">
 
-    <!-- CHAT THREAD -->
-    <div class="a3" style="background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:14px 14px 16px;display:flex;flex-direction:column;gap:9px;font-family:var(--mono);font-size:11px">
-      <!-- header chat -->
-      <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border);margin-bottom:2px">
-        <div style="display:flex;align-items:center;gap:7px;font-size:9px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase">
-          <span style="width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)"></span>
-          <span>chat con el agente</span>
-        </div>
-        <div style="font-size:9px;color:var(--dim)">14:32</div>
-      </div>
+    <!-- LEFT COLUMN: 2 paneles apilados -->
+    <div class="a3" style="display:flex;flex-direction:column;gap:10px">
 
-      <!-- Luisana → solicitud -->
-      <div style="display:flex;gap:8px;align-items:flex-start">
-        <div style="width:22px;height:22px;border-radius:50%;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">👩</div>
-        <div style="background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.22);border-radius:10px;padding:7px 11px;color:var(--text);line-height:1.5">
-          <span style="color:var(--teal)">/new-app</span> "tablero de seguimiento de cotizaciones"
+      <!-- PANEL 1: SLACK (Luisana → Miguel) -->
+      <div style="background:var(--s2);border:1px solid rgba(245,166,35,.22);border-radius:12px;padding:11px 12px 13px;display:flex;flex-direction:column;gap:7px;font-family:var(--mono);font-size:10.5px">
+        <!-- header slack -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid var(--border);margin-bottom:1px">
+          <div style="display:flex;align-items:center;gap:7px;font-size:9px;color:var(--amber);letter-spacing:.14em;text-transform:uppercase;font-weight:700">
+            <span style="font-size:11px">💬</span>
+            <span>slack · #cotizaciones</span>
+          </div>
+          <div style="font-size:9px;color:var(--dim)">10:14</div>
         </div>
-      </div>
 
-      <!-- Agente · razonando -->
-      <div style="display:flex;gap:8px;align-items:flex-start">
-        <div style="width:22px;height:22px;border-radius:6px;background:rgba(124,92,252,.18);border:1px solid rgba(124,92,252,.4);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">🤖</div>
-        <div style="background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:7px 11px;color:var(--muted);font-size:10.5px;line-height:1.65;flex:1">
-          <div style="color:var(--purple);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">razonando…</div>
-          ✓ leyendo react-frontend<br>
-          ✓ leyendo react-state · react-ui<br>
-          ✓ identificando entidades<br>
-          ✓ aplicando reglas del proyecto
+        <!-- Luisana → Miguel -->
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="width:20px;height:20px;border-radius:50%;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0">👩</div>
+          <div style="flex:1">
+            <div style="font-size:9px;color:var(--amber);font-weight:700;margin-bottom:2px">Luisana</div>
+            <div style="background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.22);border-radius:9px;padding:6px 10px;color:var(--text);line-height:1.5;font-size:10.5px">
+              Necesito un tablero interno de cotizaciones — 6 personas. No tengo dev libre y lo necesito <strong style="color:#fff">esta semana</strong>.
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- Agente · plan listo -->
-      <div style="display:flex;gap:8px;align-items:flex-start">
-        <div style="width:22px;height:22px;border-radius:6px;background:rgba(124,92,252,.18);border:1px solid rgba(124,92,252,.4);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">🤖</div>
-        <div style="background:rgba(0,201,167,.07);border:1px solid rgba(0,201,167,.32);border-radius:10px;padding:8px 12px;color:var(--text);flex:1;display:flex;align-items:center;justify-content:space-between">
-          <span style="color:var(--teal);font-weight:600">plan listo →</span>
-          <span style="font-size:9px;color:var(--dim)">7.8 seg</span>
+        <!-- Miguel → Luisana -->
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <img src="https://msanchez.tech/perfil.jpg" alt="Miguel" style="width:20px;height:20px;border-radius:50%;object-fit:cover;object-position:center 25%;border:1px solid rgba(124,92,252,.4);flex-shrink:0">
+          <div style="flex:1">
+            <div style="font-size:9px;color:var(--purple);font-weight:700;margin-bottom:2px">Miguel</div>
+            <div style="background:rgba(124,92,252,.06);border:1px solid rgba(124,92,252,.22);border-radius:9px;padding:6px 10px;color:var(--text);line-height:1.5;font-size:10.5px">
+              Te armo un MVP esta tarde 🚀
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Luisana → ajuste -->
-      <div style="display:flex;gap:8px;align-items:flex-start">
-        <div style="width:22px;height:22px;border-radius:50%;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">👩</div>
-        <div style="background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.22);border-radius:10px;padding:7px 11px;color:var(--text)">
-          "agrega exportar a CSV"
-        </div>
+      <!-- CONNECTOR · traducción -->
+      <div style="display:flex;align-items:center;gap:8px;padding:0 4px;font-family:var(--mono);font-size:9px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase">
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(124,92,252,.4))"></div>
+        <span style="color:var(--purple)">↓ Miguel traduce a lenguaje técnico</span>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(124,92,252,.4),transparent)"></div>
       </div>
 
-      <!-- Agente · ajustó -->
-      <div style="display:flex;gap:8px;align-items:flex-start">
-        <div style="width:22px;height:22px;border-radius:6px;background:rgba(124,92,252,.18);border:1px solid rgba(124,92,252,.4);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">🤖</div>
-        <div style="background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:7px 11px;color:var(--muted);font-size:10.5px;line-height:1.65;flex:1">
-          <span style="color:var(--teal)">+ ExportButton</span> · <span style="color:var(--teal)">+ exportCsv()</span><br>
-          <span style="color:var(--green);font-size:10px">plan actualizado ✓</span>
+      <!-- PANEL 2: VS CODE (Miguel ↔ Agente) -->
+      <div style="background:#0a0a14;border:1px solid rgba(124,92,252,.28);border-radius:12px;padding:11px 12px 13px;display:flex;flex-direction:column;gap:7px;font-family:var(--mono);font-size:10.5px">
+        <!-- header vscode -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:7px;border-bottom:1px solid var(--border);margin-bottom:1px">
+          <div style="display:flex;align-items:center;gap:7px;font-size:9px;color:var(--purple);letter-spacing:.14em;text-transform:uppercase;font-weight:700">
+            <span style="font-size:11px">⚙️</span>
+            <span>VS Code · Copilot chat</span>
+          </div>
+          <div style="font-size:9px;color:var(--dim)">14:32</div>
         </div>
-      </div>
 
-      <!-- Luisana → confirma -->
-      <div style="display:flex;gap:8px;align-items:flex-start">
-        <div style="width:22px;height:22px;border-radius:50%;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">👩</div>
-        <div style="background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.35);border-radius:10px;padding:7px 12px;color:var(--green);font-weight:600;flex:1;display:flex;align-items:center;justify-content:space-between">
-          <span>✅ confirmado, ejecuta</span>
-          <span style="font-size:9px;color:var(--dim);font-weight:400">14:34</span>
+        <!-- Miguel → /new-react-app -->
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <img src="https://msanchez.tech/perfil.jpg" alt="Miguel" style="width:20px;height:20px;border-radius:50%;object-fit:cover;object-position:center 25%;border:1px solid rgba(124,92,252,.4);flex-shrink:0">
+          <div style="background:rgba(124,92,252,.06);border:1px solid rgba(124,92,252,.22);border-radius:9px;padding:6px 10px;color:var(--text);line-height:1.5;flex:1">
+            <span style="color:var(--teal)">/new-react-app</span> "tablero de cotizaciones — entidad Cotizacion (id, cliente, monto, estado, fecha)"
+          </div>
+        </div>
+
+        <!-- Agente · razonando -->
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="width:20px;height:20px;border-radius:6px;background:rgba(124,92,252,.18);border:1px solid rgba(124,92,252,.4);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0">🤖</div>
+          <div style="background:var(--s1);border:1px solid var(--border);border-radius:9px;padding:6px 10px;color:var(--muted);font-size:10px;line-height:1.6;flex:1">
+            <div style="color:var(--purple);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">razonando…</div>
+            ✓ leyendo react-frontend · react-state · react-ui<br>
+            ✓ identificando entidades · aplicando reglas
+          </div>
+        </div>
+
+        <!-- Agente · plan listo -->
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <div style="width:20px;height:20px;border-radius:6px;background:rgba(124,92,252,.18);border:1px solid rgba(124,92,252,.4);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0">🤖</div>
+          <div style="background:rgba(0,201,167,.07);border:1px solid rgba(0,201,167,.32);border-radius:9px;padding:6px 10px;color:var(--text);flex:1;display:flex;align-items:center;justify-content:space-between">
+            <span style="color:var(--teal);font-weight:600">plan listo →</span>
+            <span style="font-size:9px;color:var(--dim)">7.8 seg</span>
+          </div>
+        </div>
+
+        <!-- Miguel → ajuste -->
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <img src="https://msanchez.tech/perfil.jpg" alt="Miguel" style="width:20px;height:20px;border-radius:50%;object-fit:cover;object-position:center 25%;border:1px solid rgba(124,92,252,.4);flex-shrink:0">
+          <div style="background:rgba(124,92,252,.06);border:1px solid rgba(124,92,252,.22);border-radius:9px;padding:6px 10px;color:var(--text);flex:1">
+            "agrega exportar a CSV"
+          </div>
+        </div>
+
+        <!-- Miguel · confirma -->
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <img src="https://msanchez.tech/perfil.jpg" alt="Miguel" style="width:20px;height:20px;border-radius:50%;object-fit:cover;object-position:center 25%;border:1px solid rgba(124,92,252,.4);flex-shrink:0">
+          <div style="background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.35);border-radius:9px;padding:6px 10px;color:var(--green);font-weight:600;flex:1;display:flex;align-items:center;justify-content:space-between">
+            <span>✅ confirmado, ejecuta</span>
+            <span style="font-size:9px;color:var(--dim);font-weight:400">14:34</span>
+          </div>
         </div>
       </div>
     </div>
@@ -948,9 +1302,9 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
         </div>
 
         <!-- callout final -->
-        <div style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.25);border-radius:10px;padding:11px 14px;font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.6">
-          <span style="color:var(--amber);font-weight:700">Luisana ya sabe qué va a recibir.</span> Cero código todavía.
-          Si algo no cuadra, lo ajusta — si encaja, confirma y el agente construye.
+        <div style="background:rgba(124,92,252,.07);border:1px solid rgba(124,92,252,.25);border-radius:10px;padding:11px 14px;font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.6">
+          <span style="color:var(--purple);font-weight:700">Miguel revisa el plan antes de ejecutar.</span> Cero código todavía.
+          Si algo no encaja con el pedido de Luisana, lo ajusta — si encaja, confirma y el agente construye.
         </div>
       </div>
     </div>
@@ -958,19 +1312,29 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 </div>
 
 <!-- ══════════════════════════════════
-  07 — CASO DE USO: LOOP END-TO-END (FASE 1 CONDENSADA + FASE 2)
+  10 — CASO DE USO: LOOP END-TO-END (FASE 1 CONDENSADA + FASE 2)
 ══════════════════════════════════ -->
 <div class="slide" id="s7" style="align-items:flex-start;justify-content:flex-start;padding:34px 64px">
   <div style="display:flex;align-items:flex-end;justify-content:space-between;width:100%;margin-bottom:18px">
     <div>
-      <div class="eyebrow teal a1">06 — caso de uso · construcción</div>
-      <h2 class="title a2" style="font-size:clamp(26px,3vw,40px)">Luisana confirma<br><em class="teal">el agente construye y entrega</em></h2>
+      <div class="eyebrow teal a1">09 — caso de uso · construcción</div>
+      <h2 class="title a2" style="font-size:clamp(26px,3vw,40px)">Protocolo de 2 fases:<br><em class="teal">del prompt al MVP</em></h2>
     </div>
-    <div class="a2" style="background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:8px 14px;display:flex;align-items:center;gap:10px">
-      <div style="width:24px;height:24px;border-radius:50%;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.35);display:flex;align-items:center;justify-content:center;font-size:12px">👩</div>
-      <div>
-        <div style="font-size:10px;color:#fff;font-weight:700;line-height:1.2">Luisana</div>
-        <div style="font-family:var(--mono);font-size:9px;color:var(--muted);line-height:1.2">PM · Distribuidora ABC</div>
+    <div class="a2" style="display:flex;align-items:center;gap:8px">
+      <div style="background:var(--s1);border:1px solid rgba(124,92,252,.32);border-radius:10px;padding:7px 12px;display:flex;align-items:center;gap:8px">
+        <img src="https://msanchez.tech/perfil.jpg" alt="Miguel" style="width:22px;height:22px;border-radius:50%;object-fit:cover;object-position:center 25%;border:1px solid rgba(124,92,252,.4)">
+        <div>
+          <div style="font-size:10px;color:#fff;font-weight:700;line-height:1.2">Miguel</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--purple);line-height:1.2">Dev · dirige</div>
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--dim)">↔</div>
+      <div style="background:var(--s1);border:1px solid rgba(0,201,167,.32);border-radius:10px;padding:7px 12px;display:flex;align-items:center;gap:8px">
+        <div style="width:22px;height:22px;border-radius:6px;background:rgba(0,201,167,.15);border:1px solid rgba(0,201,167,.4);display:flex;align-items:center;justify-content:center;font-size:11px">🤖</div>
+        <div>
+          <div style="font-size:10px;color:#fff;font-weight:700;line-height:1.2">react-developer</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--teal);line-height:1.2">Agente · ejecuta</div>
+        </div>
       </div>
     </div>
   </div>
@@ -985,13 +1349,13 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 
   <!-- FASE 1 · flujo condensado -->
   <div class="flow flow-sm a3">
-    <div class="fstep"><div class="fnode confirm"><div class="fi">💬</div><div class="fn">Solicitud</div><div class="fd">/new-app "tablero de cotizaciones"</div></div></div>
+    <div class="fstep"><div class="fnode confirm"><div class="fi">💬</div><div class="fn">Solicitud</div><div class="fd">/new-react-app "tablero de cotizaciones"</div></div></div>
     <div class="fconn"><div class="farrow"></div></div>
     <div class="fstep"><div class="fnode agent"><div class="fi">🧠</div><div class="fn">Razona</div><div class="fd">Activa skills · identifica entidades · aplica reglas</div></div></div>
     <div class="fconn"><div class="farrow"></div></div>
     <div class="fstep"><div class="fnode skill"><div class="fi">📋</div><div class="fn">Plan</div><div class="fd">Tipos, componentes, hooks, services</div></div></div>
     <div class="fconn"><div class="farrow"></div></div>
-    <div class="fstep"><div class="fnode confirm"><div class="fi">✅</div><div class="fn">Confirma</div><div class="fd">Usuario aprueba o pide ajustes al plan</div></div></div>
+    <div class="fstep"><div class="fnode confirm"><div class="fi">✅</div><div class="fn">Confirma</div><div class="fd">Miguel aprueba o pide ajustes al plan</div></div></div>
   </div>
 
   <!-- TRANSICIÓN entre fases -->
@@ -1008,7 +1372,7 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
     <span class="pl-num">2</span>
     <span>fase de construcción</span>
     <span class="pl-line"></span>
-    <span class="pl-aside">loop autónomo — sin intervención del usuario</span>
+    <span class="pl-aside">loop autónomo — Miguel solo supervisa</span>
   </div>
 
   <!-- FASE 2 · flujo de construcción -->
@@ -1030,64 +1394,146 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
   </div>
   <div class="loop-badge a6">
     <div class="loop-dot"></div>
-    el agente itera solo — sin que el usuario intervenga en cada paso
+    el agente itera solo — sin que Miguel intervenga en cada paso
   </div>
 
-  <!-- CIERRE DE LA HISTORIA · resultado para Luisana -->
+  <!-- CIERRE DE LA HISTORIA · Miguel entrega el resultado del protocolo -->
   <div class="a7" style="margin-top:16px;width:100%;display:flex;align-items:center;gap:14px;padding:14px 22px;background:linear-gradient(90deg,rgba(74,222,128,.08),rgba(0,201,167,.08));border:1px solid rgba(74,222,128,.32);border-radius:14px">
-    <div style="width:32px;height:32px;border-radius:8px;background:rgba(74,222,128,.18);border:1px solid rgba(74,222,128,.35);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">✅</div>
+    <div style="width:32px;height:32px;border-radius:8px;background:rgba(74,222,128,.18);border:1px solid rgba(74,222,128,.35);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🚀</div>
     <div style="flex:1;font-size:12.5px;color:var(--text);line-height:1.55">
-      <strong style="color:#fff">Luisana tiene su MVP corriendo en localhost.</strong>
+      <strong style="color:#fff">MVP listo en localhost — Miguel ya puede entregárselo a Luisana.</strong>
       <span style="color:var(--muted)">Lo que en el flujo tradicional tomaba</span>
-      <span style="color:var(--coral);font-weight:600">semanas</span><span style="color:var(--muted)">, aquí se resolvió en</span>
+      <span style="color:var(--coral);font-weight:600">semanas</span><span style="color:var(--muted)">, con este protocolo se resolvió en</span>
       <span style="color:var(--green);font-weight:600">minutos</span>.
     </div>
     <div style="font-family:var(--mono);font-size:10px;color:var(--dim);text-align:right;flex-shrink:0;letter-spacing:.1em;text-transform:uppercase">
-      ese era el reto →
+      ¿y la próxima feature? →
     </div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════
-  08 — CITAS OFICIALES
+  11 — DOS SEMANAS DESPUÉS · BEAT DE REUSO
 ══════════════════════════════════ -->
-<div class="slide" id="s8">
-  <div class="eyebrow a1" style="text-align:center">07 — fuentes oficiales</div>
-  <h2 class="title a2" style="text-align:center;margin-bottom:32px">Lo dicen ellos mismos</h2>
-  <div class="quotes-grid a3">
-    <div class="qcard q-oa">
-      <div class="qo">OpenAI · Guía Práctica para Construir Agentes</div>
-      <div class="qt">"Los agentes son sistemas que cumplen tareas en tu nombre con un alto grado de independencia."</div>
-      <a href="https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/" target="_blank" class="ql">↗ openai.com — practical guide to building agents</a>
+<div class="slide" id="s-reuso" style="align-items:flex-start;justify-content:flex-start;padding:44px 72px">
+  <!-- HEADER -->
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;width:100%;margin-bottom:24px">
+    <div>
+      <div class="eyebrow teal a1">10 — dos semanas después…</div>
+      <h2 class="title a2" style="font-size:clamp(30px,3.6vw,48px);line-height:1.05">Mismo agente,<br><em class="teal">próxima feature</em></h2>
     </div>
-    <div class="qcard q-an">
-      <div class="qo">Anthropic · Construyendo Agentes Efectivos</div>
-      <div class="qt">"Los agentes son sistemas donde los LLMs dirigen dinámicamente sus propios procesos y el uso de herramientas, manteniendo el control sobre cómo completan las tareas."</div>
-      <a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" class="ql">↗ anthropic.com — building effective agents</a>
+    <div class="a2" style="display:flex;align-items:center;gap:10px;padding:9px 16px;background:var(--s1);border:1px solid rgba(0,201,167,.32);border-radius:10px">
+      <div style="width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);animation:pulse 2s infinite"></div>
+      <div style="font-family:var(--mono);font-size:11px">
+        <span style="color:var(--muted)">la app ya está en producción interna</span>
+      </div>
     </div>
-    <div class="qcard q-go">
-      <div class="qo">Google · Documentación de la API de Gemini</div>
-      <div class="qt">"Los agentes son sistemas que aprovechan los modelos Gemini, las herramientas y las capacidades de razonamiento para ejecutar tareas complejas de múltiples pasos."</div>
-      <a href="https://ai.google.dev/gemini-api/docs/agents" target="_blank" class="ql">↗ ai.google.dev — gemini api docs agents</a>
+  </div>
+
+  <!-- TWO-COLUMN -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;width:100%;max-width:1180px;align-items:stretch">
+
+    <!-- LEFT: el pedido nuevo -->
+    <div class="a3" style="background:var(--s2);border:1px solid rgba(245,166,35,.22);border-radius:14px;padding:14px 16px 16px;display:flex;flex-direction:column;gap:9px;font-family:var(--mono);font-size:11px">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:9px;border-bottom:1px solid var(--border);margin-bottom:2px">
+        <div style="display:flex;align-items:center;gap:7px;font-size:9px;color:var(--amber);letter-spacing:.14em;text-transform:uppercase;font-weight:700">
+          <span style="font-size:11px">💬</span>
+          <span>slack · 2 semanas después</span>
+        </div>
+        <div style="font-size:9px;color:var(--dim)">09:42</div>
+      </div>
+
+      <!-- Luisana pide algo nuevo -->
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <div style="width:22px;height:22px;border-radius:50%;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">👩</div>
+        <div style="flex:1">
+          <div style="font-size:9px;color:var(--amber);font-weight:700;margin-bottom:2px">Luisana</div>
+          <div style="background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.22);border-radius:10px;padding:7px 11px;color:var(--text);line-height:1.5">
+            ¿Pueden agregar <strong style="color:#fff">filtro por rango de fechas</strong> al tablero? Y un <strong style="color:#fff">resumen mensual</strong> arriba.
+          </div>
+        </div>
+      </div>
+
+      <!-- Miguel responde -->
+      <div style="display:flex;gap:8px;align-items:flex-start">
+        <img src="https://msanchez.tech/perfil.jpg" alt="Miguel" style="width:22px;height:22px;border-radius:50%;object-fit:cover;object-position:center 25%;border:1px solid rgba(124,92,252,.4);flex-shrink:0">
+        <div style="flex:1">
+          <div style="font-size:9px;color:var(--purple);font-weight:700;margin-bottom:2px">Miguel</div>
+          <div style="background:rgba(124,92,252,.06);border:1px solid rgba(124,92,252,.22);border-radius:10px;padding:7px 11px;color:var(--text);line-height:1.5">
+            Lo agrego antes del almuerzo ✌️
+          </div>
+        </div>
+      </div>
+
+      <!-- VS Code mini -->
+      <div style="background:#0a0a14;border:1px solid rgba(124,92,252,.28);border-radius:10px;padding:9px 11px;margin-top:6px">
+        <div style="display:flex;align-items:center;gap:7px;font-size:9px;color:var(--purple);letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:6px">
+          <span style="font-size:10px">⚙️</span> VS Code · Copilot
+        </div>
+        <div style="display:flex;gap:7px;align-items:flex-start">
+          <img src="https://msanchez.tech/perfil.jpg" alt="Miguel" style="width:18px;height:18px;border-radius:50%;object-fit:cover;object-position:center 25%;border:1px solid rgba(124,92,252,.4);flex-shrink:0">
+          <div style="background:rgba(124,92,252,.06);border:1px solid rgba(124,92,252,.22);border-radius:9px;padding:5px 9px;color:var(--text);line-height:1.5;flex:1;font-size:10.5px">
+            <span style="color:var(--teal)">/add-feature</span> "filtro por rango de fechas + resumen mensual"
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="qcard q-ms">
-      <div class="qo">GitHub · Sobre Agent Skills</div>
-      <div class="qt">"Las Agent Skills son carpetas de instrucciones, scripts y recursos que Copilot puede cargar cuando son relevantes para mejorar su desempeño en tareas especializadas."</div>
-      <a href="https://docs.github.com/en/copilot/concepts/agents/about-agent-skills" target="_blank" class="ql">↗ docs.github.com — about agent skills</a>
+
+    <!-- RIGHT: lo que reutiliza -->
+    <div class="a4" style="display:flex;flex-direction:column;gap:12px">
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:2px">
+        el agente ya conoce…
+      </div>
+
+      <div style="background:var(--s1);border:1px solid rgba(0,201,167,.22);border-radius:12px;padding:13px 16px;display:flex;align-items:center;gap:14px">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,201,167,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📐</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.5"><strong style="color:#fff">La arquitectura</strong> — feature-based folders, hooks, service layer</div>
+      </div>
+
+      <div style="background:var(--s1);border:1px solid rgba(0,201,167,.22);border-radius:12px;padding:13px 16px;display:flex;align-items:center;gap:14px">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,201,167,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎨</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.5"><strong style="color:#fff">El estilo visual</strong> — Tailwind, paleta, iconos, patrones de UI</div>
+      </div>
+
+      <div style="background:var(--s1);border:1px solid rgba(0,201,167,.22);border-radius:12px;padding:13px 16px;display:flex;align-items:center;gap:14px">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,201,167,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🧬</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.5"><strong style="color:#fff">Las entidades del dominio</strong> — Cotizacion, Estado, Cliente</div>
+      </div>
+
+      <div style="background:var(--s1);border:1px solid rgba(0,201,167,.22);border-radius:12px;padding:13px 16px;display:flex;align-items:center;gap:14px">
+        <div style="width:32px;height:32px;border-radius:8px;background:rgba(0,201,167,.12);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📏</div>
+        <div style="font-size:13px;color:var(--text);line-height:1.5"><strong style="color:#fff">Las reglas del proyecto</strong> — instructions, tests, naming</div>
+      </div>
+
+      <div style="background:linear-gradient(90deg,rgba(0,201,167,.08),rgba(124,92,252,.08));border:1px solid rgba(0,201,167,.32);border-radius:12px;padding:13px 16px;font-family:var(--mono);font-size:11px;color:var(--text);line-height:1.55;text-align:center">
+        <strong style="color:var(--teal)">Misma calidad. Fracción del tiempo.</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUNCHLINE -->
+  <div class="a5" style="margin-top:24px;width:100%;max-width:1180px;display:flex;align-items:center;gap:14px;padding:16px 24px;background:linear-gradient(90deg,rgba(124,92,252,.10),rgba(0,201,167,.10));border:1px solid rgba(124,92,252,.32);border-radius:14px">
+    <div style="width:34px;height:34px;border-radius:8px;background:rgba(124,92,252,.18);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">💎</div>
+    <div style="flex:1;font-size:14px;color:var(--text);line-height:1.55">
+      <strong style="color:#fff">Un agente bien configurado paga dividendos por feature, no por proyecto.</strong>
+      <span style="color:var(--muted)">Esa misma config sirve para la próxima app de Luisana, el próximo cliente, el próximo equipo.</span>
     </div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════
-  09 — CIERRE
+  11 — CIERRE
 ══════════════════════════════════ -->
 <div class="slide" id="s9" style="text-align:center">
   <div class="bg-grid"></div>
   <div class="glow glow-teal" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
-  <div class="eyebrow a1" style="position:relative;z-index:1">resumen</div>
+  <div class="eyebrow a1" style="position:relative;z-index:1">11 — resumen</div>
   <h2 class="title a2" style="font-size:clamp(42px,6vw,76px);text-align:center;position:relative;z-index:1">
     El modelo razona.<br><em class="teal">El agente construye.</em>
   </h2>
+  <div class="a2" style="position:relative;z-index:1;margin-top:-4px;margin-bottom:18px;font-family:var(--mono);font-size:12px;color:var(--purple);letter-spacing:.12em;text-transform:uppercase;text-align:center">
+    Un agente, N features · configurás una vez, reusás para siempre
+  </div>
   <div class="sum-row a3" style="position:relative;z-index:1;max-width:960px">
     <div class="sum-item">
       <div class="si">📋</div>
@@ -1102,7 +1548,7 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
     <div class="sum-item">
       <div class="si">💬</div>
       <div class="st">Prompts + Commands</div>
-      <div class="sd"><code style="color:var(--teal)">/new-app</code> · <code style="color:var(--teal)">/add-feature</code> — el usuario invoca con una frase</div>
+      <div class="sd"><code style="color:var(--teal)">/new-react-app</code> · <code style="color:var(--teal)">/add-feature</code> — el dev invoca con una frase</div>
     </div>
     <div class="sum-item">
       <div class="si">🔄</div>
@@ -1124,38 +1570,33 @@ h2.title em.amber{background:linear-gradient(90deg,var(--amber),#fcd34d);-webkit
 
 <!-- ── NAV ── -->
 <div id="nav">
-  <button id="prev">←</button>
-  <div id="dots"></div>
-  <button id="next">→</button>
+  <button id="prev" aria-label="Slide anterior">‹</button>
+  <div id="counter"><b>01</b> / 14</div>
+  <button id="next" aria-label="Slide siguiente">›</button>
 </div>
 
 <script>
 const slides=Array.from(document.querySelectorAll('.slide'));
 const total=slides.length;
 let cur=0;
-const dotsEl=document.getElementById('dots');
 const prog=document.getElementById('progress');
-const num=document.getElementById('slide-num');
-const dots=[];
-slides.forEach((_,i)=>{
-  const d=document.createElement('div');
-  d.className='dot';
-  d.addEventListener('click',()=>go(i));
-  dotsEl.appendChild(d);
-  dots.push(d);
-});
+const counter=document.getElementById('counter');
+const prevBtn=document.getElementById('prev');
+const nextBtn=document.getElementById('next');
+const totalStr=String(total).padStart(2,'0');
 function go(n){
   if(n<0||n>=total)return;
   slides[cur].classList.remove('active');
   cur=n;
   slides[cur].classList.add('active');
-  dots.forEach((d,i)=>d.classList.toggle('on',i===cur));
   prog.style.width=((cur+1)/total*100)+'%';
-  num.textContent=String(cur+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+  counter.innerHTML='<b>'+String(cur+1).padStart(2,'0')+'</b> / '+totalStr;
+  prevBtn.disabled=cur===0;
+  nextBtn.disabled=cur===total-1;
 }
 go(0);
-document.getElementById('prev').addEventListener('click',()=>go(cur-1));
-document.getElementById('next').addEventListener('click',()=>go(cur+1));
+prevBtn.addEventListener('click',()=>go(cur-1));
+nextBtn.addEventListener('click',()=>go(cur+1));
 document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'||e.key===' ')go(cur+1);
   if(e.key==='ArrowLeft')go(cur-1);
@@ -1166,32 +1607,33 @@ let tx=0;
 document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX},{passive:true});
 document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)dx<0?go(cur+1):go(cur-1);},{passive:true});
 
-// ── Interacción slide "skill anatomy": click en una card resalta su tramo del código ──
+// ── Interacción slide "frontmatter cross-artefacto": click en un paso resalta su tramo en los 4 cards ──
 (function(){
-  const code=document.querySelector('[data-skill-code]');
   const row=document.querySelector('[data-step-row]');
-  if(!code||!row)return;
+  if(!row)return;
+  const slide=row.closest('.slide');
+  if(!slide)return;
   const cards=row.querySelectorAll('.step-card');
-  const lines=code.querySelectorAll('.ln');
+  const targets=slide.querySelectorAll('[data-load-step]');
+  if(!targets.length)return;
 
   function clear(){
-    code.classList.remove('has-active');
+    slide.classList.remove('phase-active');
     row.classList.remove('has-active');
     cards.forEach(c=>c.classList.remove('is-active'));
-    lines.forEach(l=>l.classList.remove('is-hl'));
+    targets.forEach(t=>{t.classList.remove('is-hl');t.style.opacity='';t.style.filter='';t.style.boxShadow='';});
   }
 
   function activate(step){
-    code.classList.add('has-active');
+    slide.classList.add('phase-active');
     row.classList.add('has-active');
     cards.forEach(c=>c.classList.toggle('is-active',c.dataset.stepCard===step));
-    lines.forEach(l=>{
-      const s=l.dataset.step;
-      // Paso 1 (frontmatter): incluye delimitadores Y description
-      // Paso 2 (description): solo description
-      // Paso 3 (body): solo body
-      const match=(step==='1'&&(s==='1'||s==='2'))||(step==='2'&&s==='2')||(step==='3'&&s==='3');
-      l.classList.toggle('is-hl',match);
+    const glow=step==='1'?'rgba(124,92,252,.45)':step==='2'?'rgba(0,201,167,.45)':'rgba(245,166,35,.4)';
+    targets.forEach(t=>{
+      const match=t.dataset.loadStep===step;
+      t.classList.toggle('is-hl',match);
+      if(match){t.style.opacity='1';t.style.filter='none';t.style.boxShadow='0 0 18px '+glow;}
+      else{t.style.opacity='.18';t.style.filter='saturate(.25)';t.style.boxShadow='none';}
     });
   }
 
@@ -1206,12 +1648,13 @@ document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx
     });
   });
 
-  // Al salir del slide, limpia el estado para que al volver no quede sticky
-  const slide=code.closest('.slide');
-  if(slide){
-    new MutationObserver(()=>{if(!slide.classList.contains('active'))clear();})
-      .observe(slide,{attributes:true,attributeFilter:['class']});
-  }
+  // Al salir del slide, limpia el estado para que al volver no quede sticky.
+  // IMPORTANTE: clear() reescribe la clase del slide (classList.remove siempre
+  // toca el atributo), lo que re-dispara este observer. Guardamos con phase-active
+  // para que solo corra cuando hay algo que limpiar — si no, loop infinito.
+  new MutationObserver(()=>{
+    if(!slide.classList.contains('active') && slide.classList.contains('phase-active'))clear();
+  }).observe(slide,{attributes:true,attributeFilter:['class']});
 })();
 
 // ── Interacción slide "5 artefactos": click en una card resalta sus archivos en el árbol ──
@@ -1241,6 +1684,46 @@ document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx
       const art=card.dataset.artifactCard;
       if(card.classList.contains('is-active'))clear();
       else activate(art);
+    });
+    card.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();card.click();}
+    });
+  });
+
+  const slide=tree.closest('.slide');
+  if(slide){
+    new MutationObserver(()=>{if(!slide.classList.contains('active'))clear();})
+      .observe(slide,{attributes:true,attributeFilter:['class']});
+  }
+})();
+
+// ── Interacción slide "plan mental del dev" (s-setup): click en una pregunta resalta sus archivos en el árbol ──
+(function(){
+  const tree=document.querySelector('[data-setup-tree]');
+  const row=document.querySelector('[data-setup-row]');
+  if(!tree||!row)return;
+  const cards=row.querySelectorAll('.setup-card');
+  const treeRows=tree.querySelectorAll('.tree-row');
+
+  function clear(){
+    tree.classList.remove('has-active');
+    row.classList.remove('has-active');
+    cards.forEach(c=>c.classList.remove('is-active'));
+    treeRows.forEach(r=>r.classList.remove('is-hl'));
+  }
+
+  function activate(q){
+    tree.classList.add('has-active');
+    row.classList.add('has-active');
+    cards.forEach(c=>c.classList.toggle('is-active',c.dataset.setupCard===q));
+    treeRows.forEach(r=>r.classList.toggle('is-hl',r.dataset.setup===q));
+  }
+
+  cards.forEach(card=>{
+    card.addEventListener('click',()=>{
+      const q=card.dataset.setupCard;
+      if(card.classList.contains('is-active'))clear();
+      else activate(q);
     });
     card.addEventListener('keydown',e=>{
       if(e.key==='Enter'||e.key===' '){e.preventDefault();card.click();}

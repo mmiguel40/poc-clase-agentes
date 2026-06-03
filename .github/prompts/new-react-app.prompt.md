@@ -12,7 +12,7 @@ El usuario quiere crear una nueva aplicación React. Su descripción es:
 
 "{{description}}"
 
-La aplicación React debe crearse siempre dentro de una nueva subcarpeta en la raíz del repositorio sin sobrescribir archivos existentes en la raíz.
+⚠️ **Regla crítica de ubicación:** La aplicación React debe crearse SIEMPRE dentro de una subcarpeta nueva en la raíz del repositorio. **NUNCA** uses `npm create vite@latest . ...` (con punto). **NUNCA** modifiques o sobrescribas el `index.html`, `README.md`, `.github/` ni ningún otro archivo o carpeta preexistente en la raíz del repo — esos pertenecen al repo padre. El nombre del subfolder debe aparecer explícitamente como "Folder de la app" en el plan de la Fase 1, y el usuario debe poder confirmarlo o ajustarlo antes de la construcción.
 
 Sigue el protocolo de dos fases definido en el agente:
 

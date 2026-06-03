@@ -88,6 +88,8 @@ Reporta al usuario:
 
 ## Restricciones
 
+- ⚠️ **Todo el código de la feature vive dentro de `[app-folder]/src/features/[nombre-feature]/`.** Está estrictamente prohibido escribir o modificar archivos fuera de `[app-folder]/`. Específicamente: NUNCA tocar el `index.html`, `README.md`, `.github/` ni cualquier otro archivo de la raíz del repositorio — pertenecen al repo padre (la guía/clase).
+- **Antes de cada Write/Edit**, verifica que la ruta empieza con `[app-folder]/`. Si no, detente y pregunta al usuario.
 - **No cambies archivos de features existentes** salvo que sea estrictamente necesario para la integración de la nueva feature. Si tienes que tocar uno, **infórmalo al usuario en el plan antes de hacerlo**.
 - **No introduzcas patrones nuevos** (Zustand, Context, etc.) si el proyecto no los usa ya. Si crees que se justifica, propónlo al usuario antes de implementarlo.
 - **No actualices dependencias del `package.json` existentes**. Si necesitas una nueva dependencia, justifícala al usuario antes de instalarla.

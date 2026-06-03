@@ -47,7 +47,8 @@ Sigues **siempre** un protocolo de dos fases. **No saltarse ningún paso.**
 
 **Stack:** Vite + React 18 + TypeScript + Tailwind CSS
 **Persistencia:** localStorage via service pattern
-**Estructura:** nueva app React dentro de una subcarpeta en la raíz del repositorio; dentro de esa app usar feature-based folders en src/features/[nombre-feature]/
+**Folder de la app:** `[nombre-kebab-case]/` ← se crea como **subcarpeta nueva en la raíz** del repositorio. NO se toca ningún archivo preexistente de la raíz.
+**Estructura interna:** feature-based folders en `[app-folder]/src/features/[nombre-feature]/`
 
 ¿Confirmas este plan para proceder con la construcción? (responde "sí" o sugiere cambios)
 ```
